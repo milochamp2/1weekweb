@@ -8,15 +8,6 @@ import { cn } from "@/lib/utils";
 export default function Packages() {
   return (
     <section id="packages" className="py-24 sm:py-32 relative overflow-hidden">
-      {/* Background glow for highlighted card */}
-      <div
-        className="absolute top-1/2 right-1/3 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(217,70,239,0.06) 0%, transparent 70%)",
-        }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <motion.div
@@ -26,14 +17,12 @@ export default function Packages() {
           transition={{ duration: 0.55 }}
           className="text-center mb-14 max-w-xl mx-auto"
         >
-          <span className="inline-block text-fuchsia-400 text-sm font-medium mb-4 tracking-wide uppercase">
-            Pricing
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <span className="section-label">Pricing</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Simple packages.{" "}
             <span className="text-fuchsia-400">Clear outcomes.</span>
           </h2>
-          <p className="mt-4 text-zinc-400">
+          <p className="mt-4 text-zinc-400 text-base">
             No hidden fees. No scope creep. Just a website that works.
           </p>
         </motion.div>
@@ -46,96 +35,138 @@ export default function Packages() {
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
               className={cn(
-                "relative rounded-2xl p-7 flex flex-col border transition-all duration-300",
+                "relative rounded-2xl flex flex-col overflow-hidden",
                 pkg.highlighted
-                  ? "bg-zinc-900 border-fuchsia-500/40"
-                  : "bg-zinc-900 border-white/[0.07] hover:border-white/[0.14]"
+                  ? "border border-fuchsia-500/40"
+                  : "border border-white/[0.06] bg-zinc-900/60"
               )}
               style={
                 pkg.highlighted
-                  ? { boxShadow: "0 0 50px -10px rgba(217,70,239,0.25)" }
+                  ? {
+                      background:
+                        "linear-gradient(160deg, rgba(217,70,239,0.08) 0%, rgb(24,24,27) 35%)",
+                      boxShadow:
+                        "0 0 0 1px rgba(217,70,239,0.2), 0 24px 80px -20px rgba(217,70,239,0.35)",
+                    }
                   : {}
               }
             >
+              {/* Growth: top accent bar */}
+              {pkg.highlighted && (
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px]"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(217,70,239,0.8), transparent)",
+                  }}
+                />
+              )}
+
               {/* Badge */}
               {pkg.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-fuchsia-500 text-white text-xs font-semibold shadow-lg shadow-fuchsia-500/30">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-fuchsia-500 text-white text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-fuchsia-500/40">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
                     {pkg.badge}
                   </span>
                 </div>
               )}
 
-              {/* Package name and price */}
-              <div className="mb-6">
+              <div className="p-7 flex flex-col flex-1">
+                {/* Name + period */}
                 <div className="flex items-center justify-between mb-1">
                   <h3
                     className={cn(
-                      "text-lg font-bold",
-                      pkg.highlighted ? "text-white" : "text-zinc-200"
+                      "font-bold text-xl",
+                      pkg.highlighted ? "text-white" : "text-zinc-300"
                     )}
                   >
                     {pkg.name}
                   </h3>
-                  <span className="text-zinc-500 text-xs">{pkg.period}</span>
+                  <span className="text-zinc-600 text-xs font-medium">
+                    {pkg.period}
+                  </span>
                 </div>
-                <div className="flex items-baseline gap-1">
+
+                {/* Price */}
+                <div className="mb-3">
                   <span
                     className={cn(
-                      "text-4xl font-bold tracking-tight",
-                      pkg.highlighted ? "text-white" : "text-white"
+                      "font-black tracking-tight leading-none",
+                      pkg.highlighted
+                        ? "text-5xl text-white"
+                        : "text-4xl text-zinc-300"
                     )}
                   >
                     {pkg.price}
                   </span>
                 </div>
-                <p className="mt-3 text-zinc-400 text-sm leading-relaxed">
+
+                {/* Description */}
+                <p
+                  className={cn(
+                    "text-sm leading-relaxed mb-6",
+                    pkg.highlighted ? "text-zinc-400" : "text-zinc-500"
+                  )}
+                >
                   {pkg.description}
                 </p>
+
+                {/* Divider */}
+                <div
+                  className={cn(
+                    "h-px mb-6",
+                    pkg.highlighted ? "bg-fuchsia-500/20" : "bg-white/[0.05]"
+                  )}
+                />
+
+                {/* Features */}
+                <ul className="flex flex-col gap-3 flex-1 mb-7">
+                  {pkg.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <span
+                        className={cn(
+                          "w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-px",
+                          pkg.highlighted
+                            ? "bg-fuchsia-500/20 text-fuchsia-400"
+                            : "bg-zinc-800 text-zinc-500"
+                        )}
+                      >
+                        <Check className="w-3 h-3" strokeWidth={3} />
+                      </span>
+                      <span
+                        className={cn(
+                          "text-sm",
+                          pkg.highlighted ? "text-zinc-200" : "text-zinc-400"
+                        )}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <a
+                  href="#contact"
+                  className={cn(
+                    "inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-bold text-sm transition-all duration-200 group",
+                    pkg.highlighted
+                      ? "bg-fuchsia-500 hover:bg-fuchsia-400 text-white"
+                      : "bg-white/[0.05] hover:bg-white/[0.09] text-zinc-300 hover:text-white border border-white/[0.09] hover:border-white/[0.18]"
+                  )}
+                  style={
+                    pkg.highlighted
+                      ? { boxShadow: "0 0 24px -4px rgba(217,70,239,0.4)" }
+                      : {}
+                  }
+                >
+                  {pkg.cta}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
               </div>
-
-              {/* Divider */}
-              <div
-                className={cn(
-                  "h-px mb-6",
-                  pkg.highlighted ? "bg-fuchsia-500/20" : "bg-white/[0.06]"
-                )}
-              />
-
-              {/* Features */}
-              <ul className="flex flex-col gap-3 flex-1 mb-7">
-                {pkg.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5">
-                    <span
-                      className={cn(
-                        "w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5",
-                        pkg.highlighted
-                          ? "bg-fuchsia-500/15 text-fuchsia-400"
-                          : "bg-zinc-800 text-zinc-400"
-                      )}
-                    >
-                      <Check className="w-3 h-3" strokeWidth={2.5} />
-                    </span>
-                    <span className="text-zinc-300 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA */}
-              <a
-                href="#contact"
-                className={cn(
-                  "inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-semibold text-sm transition-all duration-200 group",
-                  pkg.highlighted
-                    ? "bg-fuchsia-500 hover:bg-fuchsia-400 text-white shadow-lg shadow-fuchsia-500/25"
-                    : "bg-white/[0.06] hover:bg-white/[0.11] text-white border border-white/[0.10]"
-                )}
-              >
-                {pkg.cta}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </a>
             </motion.div>
           ))}
         </div>
@@ -151,9 +182,9 @@ export default function Packages() {
           All packages include a free 30-minute discovery call.{" "}
           <a
             href="#faq"
-            className="text-zinc-400 hover:text-fuchsia-400 underline underline-offset-4 transition-colors"
+            className="text-zinc-500 hover:text-fuchsia-400 underline underline-offset-4 transition-colors"
           >
-            See FAQs
+            See FAQs →
           </a>
         </motion.p>
       </div>
