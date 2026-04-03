@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import fs from "fs";
 import path from "path";
+import sharp from "sharp";
 
 const OWNER_EMAIL = "alananoaj@gmail.com";
 const FROM = "1LaunchLayer <alananoaj@gmail.com>";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://1launchlayer.vercel.app";
 
-function getLogoSrc(): string {
+async function getLogoSrc(): Promise<string> {
   try {
     const logoPath = path.join(process.cwd(), "public", "1launchlayer logo", "launch layer logo.png");
-    const data = fs.readFileSync(logoPath).toString("base64");
-    return `data:image/png;base64,${data}`;
+    const resized = await sharp(logoPath).resize(64, 64, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+    return `data:image/png;base64,${resized.toString("base64")}`;
   } catch {
     return `${SITE_URL}/1launchlayer%20logo/launch%20layer%20logo.png`;
   }
@@ -27,95 +27,100 @@ interface ContactPayload {
 }
 
 // ─── Owner notification ───────────────────────────────────────────────────────
-function ownerEmail(d: ContactPayload): string {
-  const logoSrc = getLogoSrc();
+async function ownerEmail(d: ContactPayload): Promise<string> {
+  const logoSrc = await getLogoSrc();
   const now = new Date().toLocaleDateString("en-AU", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
   return `
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/></head>
-<body style="margin:0;padding:0;background:#0f0f11;font-family:'Inter',Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f0f11;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Inter',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:40px 16px;">
     <tr><td align="center">
       <table width="580" cellpadding="0" cellspacing="0" style="max-width:580px;width:100%;">
 
         <!-- Top brand bar -->
-        <tr><td style="padding-bottom:24px;">
+        <tr><td style="padding-bottom:20px;">
           <table cellpadding="0" cellspacing="0" width="100%"><tr>
             <td style="vertical-align:middle;">
               <table cellpadding="0" cellspacing="0"><tr>
                 <td style="vertical-align:middle;padding-right:10px;">
-                  <img src="${logoSrc}" width="32" height="32" alt="1LaunchLayer" style="display:block;border-radius:6px;" />
+                  <img src="${logoSrc}" width="32" height="32" alt="1LaunchLayer" style="display:block;" />
                 </td>
                 <td style="vertical-align:middle;">
-                  <span style="font-size:15px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;">1Launch<span style="color:#d946ef;">Layer</span></span>
+                  <span style="font-size:15px;font-weight:700;color:#111827;letter-spacing:-0.02em;">1Launch<span style="color:#d946ef;">Layer</span></span>
                 </td>
               </tr></table>
             </td>
             <td align="right" style="vertical-align:middle;">
-              <span style="font-size:12px;color:#6b7280;">${now}</span>
+              <span style="font-size:12px;color:#9ca3af;">${now}</span>
             </td>
           </tr></table>
         </td></tr>
 
-        <!-- Hero card -->
-        <tr><td style="background:linear-gradient(135deg,#1a0a1e 0%,#1c1028 50%,#0f1623 100%);border-radius:20px 20px 0 0;padding:40px 44px 36px;border:1px solid #2a1f35;border-bottom:none;">
-          <table cellpadding="0" cellspacing="0" width="100%">
-            <tr><td>
-              <span style="display:inline-block;background:rgba(217,70,239,0.15);border:1px solid rgba(217,70,239,0.4);color:#e879f9;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;">
-                ⚡ New Lead
-              </span>
+        <!-- Card wrapper -->
+        <tr><td style="background:#ffffff;border-radius:20px;border:1px solid #e5e7eb;overflow:hidden;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+
+            <!-- Hero section -->
+            <tr><td style="background:linear-gradient(135deg,#fdf4ff 0%,#f5f0ff 50%,#fafafa 100%);padding:40px 44px 36px;border-bottom:1px solid #e5e7eb;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr><td>
+                  <span style="display:inline-block;background:#fdf4ff;border:1px solid #e879f9;color:#a21caf;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;">
+                    ⚡ New Lead
+                  </span>
+                </td></tr>
+                <tr><td style="padding-top:20px;">
+                  <h1 style="margin:0;font-size:30px;font-weight:800;color:#111827;letter-spacing:-0.03em;line-height:1.2;">
+                    ${d.name}<br/>
+                    <span style="color:#d946ef;">wants to talk.</span>
+                  </h1>
+                </td></tr>
+                <tr><td style="padding-top:12px;">
+                  <p style="margin:0;font-size:15px;color:#6b7280;line-height:1.6;">
+                    A new enquiry just came through from <strong style="color:#111827;">${d.businessName}</strong>. Here's everything you need to follow up.
+                  </p>
+                </td></tr>
+              </table>
             </td></tr>
-            <tr><td style="padding-top:20px;">
-              <h1 style="margin:0;font-size:32px;font-weight:800;color:#ffffff;letter-spacing:-0.03em;line-height:1.15;">
-                ${d.name}<br/>
-                <span style="color:#d946ef;">wants to talk.</span>
-              </h1>
+
+            <!-- Details section -->
+            <tr><td style="padding:32px 44px;border-bottom:1px solid #f3f4f6;">
+              ${detailRow("👤", "Name", d.name)}
+              ${detailRow("🏢", "Business", d.businessName)}
+              ${detailRow("✉️", "Email", `<a href="mailto:${d.email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.email}</a>`)}
+              ${d.website ? detailRow("🌐", "Website", `<a href="${d.website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.website}</a>`) : ""}
+              ${detailRow("💬", "Needs help with", d.help)}
+              ${d.packageInterest ? detailRow("📦", "Package interest", `<span style="display:inline-block;background:#fdf4ff;border:1px solid #e879f9;color:#a21caf;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:600;">${d.packageInterest}</span>`) : ""}
             </td></tr>
-            <tr><td style="padding-top:12px;">
-              <p style="margin:0;font-size:15px;color:#9ca3af;line-height:1.6;">
-                A new enquiry just came through from <strong style="color:#e5e7eb;">${d.businessName}</strong>. Here's everything you need to follow up.
-              </p>
+
+            <!-- CTA section -->
+            <tr><td style="padding:28px 44px;">
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding-right:12px;">
+                    <a href="mailto:${d.email}?subject=Re: Your enquiry to 1LaunchLayer"
+                       style="display:inline-block;background:linear-gradient(135deg,#d946ef,#a855f7);color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:13px 28px;border-radius:10px;letter-spacing:-0.01em;">
+                      Reply to ${d.name} →
+                    </a>
+                  </td>
+                  ${d.website ? `<td>
+                    <a href="${d.website}" target="_blank"
+                       style="display:inline-block;background:#ffffff;color:#6b7280;font-size:14px;font-weight:600;text-decoration:none;padding:13px 20px;border-radius:10px;border:1px solid #e5e7eb;">
+                      View site ↗
+                    </a>
+                  </td>` : ""}
+                </tr>
+              </table>
             </td></tr>
-          </table>
-        </td></tr>
 
-        <!-- Details card -->
-        <tr><td style="background:#161620;border:1px solid #2a1f35;border-top:1px solid #3b2a45;border-bottom:none;padding:32px 44px;">
-
-          ${detailRow("👤", "Name", d.name)}
-          ${detailRow("🏢", "Business", d.businessName)}
-          ${detailRow("✉️", "Email", `<a href="mailto:${d.email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.email}</a>`)}
-          ${d.website ? detailRow("🌐", "Website", `<a href="${d.website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.website}</a>`) : ""}
-          ${detailRow("💬", "Needs help with", d.help)}
-          ${d.packageInterest ? detailRow("📦", "Package interest", `<span style="display:inline-block;background:rgba(217,70,239,0.15);border:1px solid rgba(217,70,239,0.35);color:#e879f9;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:600;">${d.packageInterest}</span>`) : ""}
-
-        </td></tr>
-
-        <!-- CTA card -->
-        <tr><td style="background:#161620;border:1px solid #2a1f35;border-top:1px solid #1f1f2e;border-radius:0 0 20px 20px;padding:28px 44px 36px;">
-          <table cellpadding="0" cellspacing="0">
-            <tr>
-              <td style="padding-right:12px;">
-                <a href="mailto:${d.email}?subject=Re: Your enquiry to 1LaunchLayer"
-                   style="display:inline-block;background:linear-gradient(135deg,#d946ef,#a855f7);color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:13px 28px;border-radius:10px;letter-spacing:-0.01em;">
-                  Reply to ${d.name} →
-                </a>
-              </td>
-              ${d.website ? `<td>
-                <a href="${d.website}" target="_blank"
-                   style="display:inline-block;background:transparent;color:#9ca3af;font-size:14px;font-weight:600;text-decoration:none;padding:13px 20px;border-radius:10px;border:1px solid #2d2d3a;">
-                  View site ↗
-                </a>
-              </td>` : ""}
-            </tr>
           </table>
         </td></tr>
 
         <!-- Footer -->
-        <tr><td style="padding-top:28px;">
-          <p style="margin:0;font-size:12px;color:#4b5563;text-align:center;">
-            Sent automatically by 1LaunchLayer's contact form · <a href="${SITE_URL}" style="color:#6b7280;text-decoration:none;">1launchlayer.com.au</a>
+        <tr><td style="padding-top:24px;">
+          <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">
+            Sent automatically by 1LaunchLayer's contact form · <a href="${SITE_URL}" style="color:#9ca3af;text-decoration:none;">1launchlayer.com.au</a>
           </p>
         </td></tr>
 
@@ -164,7 +169,7 @@ export async function POST(request: Request) {
       from: FROM,
       to: OWNER_EMAIL,
       subject: `New enquiry from ${data.name} — ${data.businessName}`,
-      html: ownerEmail(data),
+      html: await ownerEmail(data),
     });
 
     return NextResponse.json({ success: true });
