@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Layers, Mail, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { navLinks } from "@/data/content";
 
 const currentYear = new Date().getFullYear();
@@ -19,12 +20,16 @@ export default function Footer() {
             transition={{ duration: 0.45 }}
             className="flex flex-col gap-4"
           >
-            <a href="#home" className="flex items-center gap-2.5 w-fit group">
-              <div className="w-7 h-7 rounded-lg bg-fuchsia-500 flex items-center justify-center shrink-0 group-hover:bg-fuchsia-600 transition-colors">
-                <Layers className="w-4 h-4 text-white" strokeWidth={2.5} />
-              </div>
+            <a href="#home" className="flex items-center gap-2 w-fit group">
+              <Image
+                src="/logo/logo.png"
+                alt="1LaunchLayer logo"
+                width={32}
+                height={32}
+                className="shrink-0"
+              />
               <span className="text-gray-900 font-bold text-[17px] tracking-tight">
-                1Week<span className="text-fuchsia-500">Web</span>
+                1Launch<span className="text-fuchsia-500">Layer</span>
               </span>
             </a>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[220px]">
@@ -77,11 +82,11 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col gap-4">
               <a
-                href="mailto:hello@1weekweb.com.au"
+                href="mailto:hello@1launchlayer.com.au"
                 className="flex items-center gap-2.5 text-gray-500 hover:text-fuchsia-500 text-sm transition-colors group"
               >
                 <Mail className="w-4 h-4 shrink-0" />
-                hello@1weekweb.com.au
+                hello@1launchlayer.com.au
                 <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
               <a
@@ -106,10 +111,10 @@ export default function Footer() {
           className="flex flex-col sm:flex-row items-center justify-between gap-3"
         >
           <p className="text-gray-400 text-xs">
-            © {currentYear} 1WeekWeb. All rights reserved.
+            © {currentYear} 1LaunchLayer. All rights reserved.
           </p>
           <p className="text-gray-400 text-xs">
-            Built by 1WeekWeb · Australia
+            Built by 1LaunchLayer · Australia
           </p>
         </motion.div>
       </div>

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Layers } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { navLinks } from "@/data/content";
 import { cn } from "@/lib/utils";
 
@@ -30,12 +31,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-[70px]">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-lg bg-fuchsia-500 flex items-center justify-center shrink-0 group-hover:bg-fuchsia-600 transition-colors">
-              <Layers className="w-4 h-4 text-white" strokeWidth={2.5} />
-            </div>
+          <a href="#home" className="flex items-center gap-2 group">
+            <Image
+              src="/logo/logo.png"
+              alt="1LaunchLayer logo"
+              width={32}
+              height={32}
+              className="shrink-0"
+            />
             <span className="text-gray-900 font-bold text-[17px] tracking-tight">
-              1Week<span className="text-fuchsia-500">Web</span>
+              1Launch<span className="text-fuchsia-500">Layer</span>
             </span>
           </a>
 
