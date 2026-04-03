@@ -23,7 +23,7 @@ export default function TrustStrip() {
         }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:divide-x sm:divide-white/[0.07]">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-0 divide-y divide-white/[0.05] sm:divide-y-0 sm:divide-x sm:divide-white/[0.07]">
           {trustPoints.map((point, i) => {
             const Icon = icons[point.icon];
             return (
@@ -33,7 +33,7 @@ export default function TrustStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="flex items-center gap-2.5 px-7 sm:px-10 py-3"
+                className="flex items-center gap-2.5 px-7 sm:px-10 py-3 w-full sm:w-auto justify-center sm:justify-start"
               >
                 <Icon className="w-3.5 h-3.5 text-fuchsia-400 shrink-0" />
                 <span className="text-xs font-semibold text-zinc-400 tracking-wide">

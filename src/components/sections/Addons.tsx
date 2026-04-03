@@ -24,10 +24,8 @@ export default function Addons() {
           transition={{ duration: 0.55 }}
           className="text-center mb-14 max-w-xl mx-auto"
         >
-          <span className="inline-block text-fuchsia-400 text-sm font-medium mb-4 tracking-wide uppercase">
-            Add-Ons
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <span className="section-label">Add-Ons</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Enhance your website performance
           </h2>
           <p className="mt-4 text-zinc-400">
@@ -36,7 +34,7 @@ export default function Addons() {
         </motion.div>
 
         {/* Add-on cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {addons.map((addon, i) => {
             const Icon = icons[addon.icon];
             return (
@@ -46,8 +44,8 @@ export default function Addons() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.45, delay: i * 0.07 }}
-                whileHover={{ y: -5, borderColor: "rgba(217,70,239,0.3)" }}
-                className="group rounded-2xl bg-zinc-900 border border-white/[0.07] p-5 flex flex-col gap-4 cursor-default transition-all duration-200"
+                whileHover={{ y: -5 }}
+                className="group rounded-2xl bg-zinc-900 border border-white/[0.07] hover:border-fuchsia-500/30 p-5 flex flex-col gap-4 cursor-default transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center group-hover:bg-fuchsia-500/15 transition-colors">
                   <Icon className="w-5 h-5 text-fuchsia-400" />

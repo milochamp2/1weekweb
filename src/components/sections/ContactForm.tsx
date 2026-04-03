@@ -59,7 +59,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-white/[0.07] text-white text-sm placeholder-zinc-600 outline-none focus:border-fuchsia-500/50 focus:bg-zinc-800/80 transition-all duration-200";
+  "w-full px-4 py-3.5 rounded-xl bg-zinc-800/50 border border-white/[0.07] text-white text-sm placeholder-zinc-600 outline-none focus:border-fuchsia-500/50 focus:bg-zinc-800/80 transition-all duration-200";
 
 const selectCls = cn(
   inputCls,

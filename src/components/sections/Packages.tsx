@@ -28,7 +28,7 @@ export default function Packages() {
         </motion.div>
 
         {/* Package cards */}
-        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-5 max-w-3xl mx-auto">
           {packages.map((pkg, i) => (
             <motion.div
               key={pkg.id}

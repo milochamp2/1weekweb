@@ -62,16 +62,15 @@ export default function Hero() {
             {/* Headline */}
             <motion.h1
               {...fade(0.18)}
-              className="text-[2.75rem] sm:text-5xl xl:text-[3.75rem] font-extrabold text-white leading-[1.08]"
+              className="text-4xl sm:text-5xl xl:text-[3.75rem] font-extrabold text-white leading-[1.08]"
             >
               Launch a{" "}
               <span
                 className="text-fuchsia-400"
                 style={{ textShadow: "0 0 40px rgba(217,70,239,0.4)" }}
               >
-                high-converting
-              </span>
-              <br />
+                high&#8209;converting
+              </span>{" "}
               website in{" "}
               <span className="relative inline-block">
                 7 days

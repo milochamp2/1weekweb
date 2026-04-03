@@ -36,7 +36,7 @@ export default function GrowthPlan() {
         </motion.div>
 
         {/* Plans */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5 max-w-4xl mx-auto">
           {growthPlans.map((plan, i) => (
             <motion.div
               key={plan.name}

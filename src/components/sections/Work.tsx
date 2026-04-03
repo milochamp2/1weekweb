@@ -25,10 +25,8 @@ export default function Work() {
           className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4"
         >
           <div>
-            <span className="inline-block text-fuchsia-400 text-sm font-medium mb-4 tracking-wide uppercase">
-              Portfolio
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            <span className="section-label">Portfolio</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Selected work
             </h2>
           </div>
