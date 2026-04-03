@@ -22,7 +22,7 @@ export default function Footer() {
           >
             <a href="#home" className="flex items-center gap-2 w-fit group">
               <Image
-                src="/logo/logo.png"
+                src="/1launchlayer logo/launch layer logo.png"
                 alt="1LaunchLayer logo"
                 width={32}
                 height={32}
