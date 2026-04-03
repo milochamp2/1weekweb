@@ -297,7 +297,7 @@ export default function ContactForm() {
 
                 <Field label="Current website URL">
                   <input
-                    type="url"
+                    type="text"
                     placeholder="https://yourbusiness.com.au (if you have one)"
                     value={form.website}
                     onChange={set("website")}
