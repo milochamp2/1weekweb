@@ -9,7 +9,7 @@ export default function Packages() {
   return (
     <section
       id="packages"
-      className="py-24 sm:py-32 relative overflow-hidden"
+      className="py-16 sm:py-24 relative overflow-hidden border-t border-gray-100"
       style={{
         background:
           "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(217,70,239,0.05) 0%, transparent 60%), #ffffff",

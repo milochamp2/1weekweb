@@ -7,8 +7,11 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="py-24 sm:py-32 relative overflow-hidden bg-gray-50"
+      className="py-16 sm:py-24 relative overflow-hidden bg-gray-900"
     >
+      {/* Top divider */}
+      <div className="section-divider" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -18,11 +21,11 @@ export default function Process() {
           transition={{ duration: 0.55 }}
           className="text-center mb-16 max-w-xl mx-auto"
         >
-          <span className="section-label">How It Works</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
+          <span className="section-label section-label-light">How It Works</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             A simple 4-step process
           </h2>
-          <p className="mt-4 text-gray-600 text-base">
+          <p className="mt-4 text-gray-400 text-base">
             From first call to live website — we handle the heavy lifting.
           </p>
         </motion.div>
@@ -33,7 +36,7 @@ export default function Process() {
           <div
             className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px"
             style={{
-              background: "linear-gradient(90deg, transparent, rgba(217,70,239,0.3) 20%, rgba(217,70,239,0.3) 80%, transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(217,70,239,0.4) 20%, rgba(217,70,239,0.4) 80%, transparent)",
             }}
           />
 
@@ -48,20 +51,18 @@ export default function Process() {
             >
               {/* Step number */}
               <div
-                className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-white border border-gray-200"
-                style={{
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                }}
+                className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-gray-800 border border-white/10"
+                style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.3)" }}
               >
-                <span className="text-xl font-black text-fuchsia-500 tabular-nums">
+                <span className="text-xl font-black text-fuchsia-400 tabular-nums">
                   {step.number}
                 </span>
               </div>
 
-              <h3 className="text-gray-900 font-semibold text-base mb-2">
+              <h3 className="text-white font-semibold text-base mb-2">
                 {step.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
                 {step.description}
               </p>
             </motion.div>

@@ -3,6 +3,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://1launchlayer.com.au"),
   title: "1LaunchLayer | High-Converting Websites in 7 Days — Australia",
   description:
     "We build lead-generating websites for Australian service businesses. Live in 7 days. From $1,200.",

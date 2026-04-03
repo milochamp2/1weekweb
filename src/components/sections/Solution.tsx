@@ -23,14 +23,14 @@ function StatBadge({ stat, label }: { stat: string; label: string }) {
   return (
     <div
       ref={ref}
-      className={`mt-5 pt-5 border-t border-gray-100 transition-all duration-500 ${
+      className={`mt-5 pt-5 border-t border-white/10 transition-all duration-500 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
       }`}
     >
-      <p className="text-fuchsia-500 font-black text-2xl tracking-tight leading-none">
+      <p className="text-fuchsia-400 font-black text-2xl tracking-tight leading-none">
         {stat}
       </p>
-      <p className="text-gray-400 text-xs mt-1 leading-snug">{label}</p>
+      <p className="text-gray-500 text-xs mt-1 leading-snug">{label}</p>
     </div>
   );
 }
@@ -39,8 +39,11 @@ export default function Solution() {
   return (
     <section
       id="solution"
-      className="py-24 sm:py-32 relative overflow-hidden bg-gray-50"
+      className="py-16 sm:py-24 relative overflow-hidden bg-gray-900"
     >
+      {/* Top divider */}
+      <div className="section-divider" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <motion.div
@@ -50,12 +53,12 @@ export default function Solution() {
           transition={{ duration: 0.55 }}
           className="text-center mb-14 max-w-2xl mx-auto"
         >
-          <span className="section-label">Our Approach</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+          <span className="section-label section-label-light">Our Approach</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
             Built for speed.
             <br className="hidden sm:block" /> Structured for conversions.
           </h2>
-          <p className="mt-4 text-gray-600 text-base leading-relaxed">
+          <p className="mt-4 text-gray-400 text-base leading-relaxed">
             We build websites that generate leads — not just look good.
           </p>
         </motion.div>
@@ -72,16 +75,15 @@ export default function Solution() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="group relative rounded-2xl bg-white border border-gray-200 p-7 transition-all duration-300 hover:border-fuchsia-200 hover:shadow-lg"
-                style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
+                className="group relative rounded-2xl bg-white/5 border border-white/10 p-7 transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.07]"
               >
-                <div className="w-11 h-11 rounded-xl bg-fuchsia-50 border border-fuchsia-200 flex items-center justify-center mb-6 group-hover:bg-fuchsia-100 transition-all duration-300">
-                  <Icon className="w-5 h-5 text-fuchsia-500" />
+                <div className="w-11 h-11 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:bg-fuchsia-500/20 transition-all duration-300">
+                  <Icon className="w-5 h-5 text-fuchsia-400" />
                 </div>
-                <h3 className="text-gray-900 font-semibold text-lg mb-3">
+                <h3 className="text-white font-semibold text-lg mb-3">
                   {value.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed">
                   {value.description}
                 </p>
                 <StatBadge stat={value.stat} label={value.statLabel} />

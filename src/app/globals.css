@@ -9,16 +9,6 @@ html {
   scroll-behavior: auto;
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-33.333%); }
-}
-
-.animate-marquee {
-  animation: marquee 24s linear infinite;
-  will-change: transform;
-}
-
 body {
   background-color: #ffffff;
   color: #0f0f12;
@@ -29,41 +19,67 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1,
-h2,
-h3 {
+/* ── Typography ─────────────────────────────────────────────── */
+h1, h2, h3 {
   letter-spacing: -0.025em;
 }
 
+/* Uppercase / small-caps labels get consistent tracking */
+.uppercase, [class*="uppercase"] {
+  letter-spacing: 0.05em;
+}
+
+/* ── Focus visible — WCAG AA keyboard navigation ────────────── */
+:focus-visible {
+  outline: 2px solid #d946ef;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove focus ring for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Selection ──────────────────────────────────────────────── */
 ::selection {
   background: rgba(217, 70, 239, 0.2);
   color: #0f0f12;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f4f4f5; }
+::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
 
-::-webkit-scrollbar-track {
-  background: #f4f4f5;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-  border-radius: 99px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
-}
-
-/* Consistent section label */
+/* ── Section label ──────────────────────────────────────────── */
 .section-label {
   display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.6875rem;          /* 11px — distinct from body */
+  font-weight: 700;
   color: rgb(192 38 211);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.875rem;
+}
+
+/* Dark-section variant */
+.section-label-light {
+  color: rgba(232, 121, 249, 0.9);
+}
+
+/* ── Section divider gradient line ──────────────────────────── */
+.section-divider {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(217, 70, 239, 0.5) 35%,
+    rgba(217, 70, 239, 0.5) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
 }

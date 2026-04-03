@@ -6,7 +6,7 @@ import { testimonials } from "@/data/content";
 
 export default function Testimonials() {
   return (
-    <section className="py-24 sm:py-32 bg-gray-50 relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-gray-50 relative overflow-hidden border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

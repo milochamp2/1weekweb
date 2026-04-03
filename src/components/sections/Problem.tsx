@@ -12,7 +12,7 @@ const icons: Record<string, React.FC<{ className?: string }>> = {
 
 export default function Problem() {
   return (
-    <section className="py-24 sm:py-32 relative overflow-hidden bg-white">
+    <section className="py-16 sm:py-24 relative overflow-hidden bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -53,7 +53,7 @@ export default function Problem() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-200"
                   style={{ background: "#fff0ef", border: "1px solid #f8cac8" }}
                 >
-                  <Icon className="w-5 h-5" style={{ color: "#C4453C" }} />
+                  <Icon className="w-5 h-5 text-[#C4453C]" />
                 </div>
                 <h3 className="text-gray-900 font-semibold text-[15px] mb-2 leading-snug">
                   {problem.title}
