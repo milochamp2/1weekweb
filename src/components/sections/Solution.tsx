@@ -57,7 +57,7 @@ export default function Solution() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 whileHover={{ y: -5, borderColor: "rgba(217,70,239,0.3)" }}
-                className="group relative rounded-2xl bg-zinc-900 border border-white/[0.07] p-7 transition-all duration-300 overflow-hidden"
+                className="group relative rounded-2xl bg-zinc-800/70 border border-white/[0.10] p-7 transition-all duration-300 overflow-hidden"
               >
                 {/* Hover inner glow */}
                 <div
@@ -74,7 +74,7 @@ export default function Solution() {
                 <h3 className="text-white font-semibold text-lg mb-3">
                   {value.title}
                 </h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">
+                <p className="text-zinc-400 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>

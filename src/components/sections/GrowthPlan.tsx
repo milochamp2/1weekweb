@@ -44,23 +44,36 @@ export default function GrowthPlan() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={cn(
-                "relative rounded-2xl p-7 flex flex-col border overflow-hidden transition-all duration-300",
-                plan.highlighted
-                  ? "border-fuchsia-500/40"
-                  : "bg-zinc-900/50 border-white/[0.06] hover:border-white/[0.12]"
-              )}
-              style={
-                plan.highlighted
-                  ? {
-                      background:
-                        "linear-gradient(160deg, rgba(217,70,239,0.07) 0%, rgb(24,24,27) 35%)",
-                      boxShadow:
-                        "0 0 0 1px rgba(217,70,239,0.15), 0 20px 60px -15px rgba(217,70,239,0.3)",
-                    }
-                  : {}
-              }
+              className="relative"
             >
+              {/* Badge — outside overflow-hidden so it's never clipped */}
+              {plan.badge && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-fuchsia-500 text-white text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-fuchsia-500/40">
+                    {plan.badge}
+                  </span>
+                </div>
+              )}
+
+              {/* Card */}
+              <div
+                className={cn(
+                  "relative rounded-2xl p-7 flex flex-col border overflow-hidden transition-all duration-300",
+                  plan.highlighted
+                    ? "border-fuchsia-500/40"
+                    : "bg-zinc-800/50 border-white/[0.09] hover:border-white/[0.15]"
+                )}
+                style={
+                  plan.highlighted
+                    ? {
+                        background:
+                          "linear-gradient(160deg, rgba(217,70,239,0.07) 0%, rgb(24,24,27) 35%)",
+                        boxShadow:
+                          "0 0 0 1px rgba(217,70,239,0.15), 0 20px 60px -15px rgba(217,70,239,0.3)",
+                      }
+                    : {}
+                }
+              >
               {/* Highlighted: top accent */}
               {plan.highlighted && (
                 <div
@@ -70,15 +83,6 @@ export default function GrowthPlan() {
                       "linear-gradient(90deg, transparent, rgba(217,70,239,0.7), transparent)",
                   }}
                 />
-              )}
-
-              {/* Badge */}
-              {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-fuchsia-500 text-white text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-fuchsia-500/40">
-                    {plan.badge}
-                  </span>
-                </div>
               )}
 
               {/* Name + description */}
@@ -91,7 +95,7 @@ export default function GrowthPlan() {
                 >
                   {plan.name}
                 </h3>
-                <p className="text-zinc-500 text-sm">{plan.description}</p>
+                <p className="text-zinc-400 text-sm">{plan.description}</p>
               </div>
 
               {/* Price */}
@@ -131,7 +135,7 @@ export default function GrowthPlan() {
                     <span
                       className={cn(
                         "text-sm",
-                        plan.highlighted ? "text-zinc-200" : "text-zinc-400"
+                        plan.highlighted ? "text-zinc-100" : "text-zinc-300"
                       )}
                     >
                       {feature}
@@ -158,6 +162,7 @@ export default function GrowthPlan() {
                 Get started
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </a>
+              </div>
             </motion.div>
           ))}
         </div>

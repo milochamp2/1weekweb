@@ -26,8 +26,8 @@ function FAQItem({
       className={cn(
         "rounded-2xl border transition-all duration-200",
         isOpen
-          ? "bg-zinc-900 border-fuchsia-500/25"
-          : "bg-zinc-900/60 border-white/[0.06] hover:border-white/[0.12]"
+          ? "bg-zinc-800/80 border-fuchsia-500/25"
+          : "bg-zinc-800/50 border-white/[0.09] hover:border-white/[0.15]"
       )}
     >
       <button
@@ -65,7 +65,7 @@ function FAQItem({
           >
             <div className="px-6 pb-5">
               <div className="h-px bg-fuchsia-500/15 mb-4" />
-              <p className="text-zinc-400 text-sm leading-relaxed">
+              <p className="text-zinc-300 text-sm leading-relaxed">
                 {faq.answer}
               </p>
             </div>
@@ -95,13 +95,11 @@ export default function FAQ() {
           transition={{ duration: 0.55 }}
           className="text-center mb-12"
         >
-          <span className="inline-block text-fuchsia-400 text-sm font-medium mb-4 tracking-wide uppercase">
-            FAQ
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <span className="section-label">FAQ</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Frequently asked questions
           </h2>
-          <p className="mt-4 text-zinc-400">
+          <p className="mt-4 text-zinc-300">
             Everything you need to know before getting started.
           </p>
         </motion.div>

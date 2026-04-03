@@ -36,23 +36,37 @@ export default function Packages() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className={cn(
-                "relative rounded-2xl flex flex-col overflow-hidden",
-                pkg.highlighted
-                  ? "border border-fuchsia-500/40"
-                  : "border border-white/[0.06] bg-zinc-900/60"
-              )}
-              style={
-                pkg.highlighted
-                  ? {
-                      background:
-                        "linear-gradient(160deg, rgba(217,70,239,0.08) 0%, rgb(24,24,27) 35%)",
-                      boxShadow:
-                        "0 0 0 1px rgba(217,70,239,0.2), 0 24px 80px -20px rgba(217,70,239,0.35)",
-                    }
-                  : {}
-              }
+              className="relative"
             >
+              {/* Badge — outside overflow-hidden so it's never clipped */}
+              {pkg.badge && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-fuchsia-500 text-white text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-fuchsia-500/40">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
+                    {pkg.badge}
+                  </span>
+                </div>
+              )}
+
+              {/* Card — overflow-hidden here clips accent bar to rounded corners */}
+              <div
+                className={cn(
+                  "relative rounded-2xl overflow-hidden flex flex-col",
+                  pkg.highlighted
+                    ? "border border-fuchsia-500/40"
+                    : "border border-white/[0.09] bg-zinc-800/60"
+                )}
+                style={
+                  pkg.highlighted
+                    ? {
+                        background:
+                          "linear-gradient(160deg, rgba(217,70,239,0.08) 0%, rgb(24,24,27) 35%)",
+                        boxShadow:
+                          "0 0 0 1px rgba(217,70,239,0.2), 0 24px 80px -20px rgba(217,70,239,0.35)",
+                      }
+                    : {}
+                }
+              >
               {/* Growth: top accent bar */}
               {pkg.highlighted && (
                 <div
@@ -62,16 +76,6 @@ export default function Packages() {
                       "linear-gradient(90deg, transparent, rgba(217,70,239,0.8), transparent)",
                   }}
                 />
-              )}
-
-              {/* Badge */}
-              {pkg.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-fuchsia-500 text-white text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-fuchsia-500/40">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
-                    {pkg.badge}
-                  </span>
-                </div>
               )}
 
               <div className="p-7 flex flex-col flex-1">
@@ -108,7 +112,7 @@ export default function Packages() {
                 <p
                   className={cn(
                     "text-sm leading-relaxed mb-6",
-                    pkg.highlighted ? "text-zinc-400" : "text-zinc-500"
+                    pkg.highlighted ? "text-zinc-300" : "text-zinc-400"
                   )}
                 >
                   {pkg.description}
@@ -139,7 +143,7 @@ export default function Packages() {
                       <span
                         className={cn(
                           "text-sm",
-                          pkg.highlighted ? "text-zinc-200" : "text-zinc-400"
+                          pkg.highlighted ? "text-zinc-100" : "text-zinc-300"
                         )}
                       >
                         {feature}
@@ -166,6 +170,7 @@ export default function Packages() {
                   {pkg.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </a>
+              </div>
               </div>
             </motion.div>
           ))}

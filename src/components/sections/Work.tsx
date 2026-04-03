@@ -85,7 +85,7 @@ export default function Work() {
                 <h3 className="text-white font-semibold text-base mb-2">
                   {project.title}
                 </h3>
-                <p className="text-zinc-500 text-sm leading-relaxed flex-1 mb-4">
+                <p className="text-zinc-400 text-sm leading-relaxed flex-1 mb-4">
                   {project.summary}
                 </p>
 

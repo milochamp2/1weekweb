@@ -36,7 +36,7 @@ export default function Footer() {
                 1Week<span className="text-fuchsia-400">Web</span>
               </span>
             </a>
-            <p className="text-zinc-500 text-sm leading-relaxed max-w-[220px]">
+            <p className="text-zinc-400 text-sm leading-relaxed max-w-[220px]">
               High-converting websites for Australian service businesses. Built
               in 7 days.
             </p>
@@ -57,7 +57,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-zinc-500 hover:text-zinc-300 text-sm transition-colors"
+                    className="text-zinc-400 hover:text-zinc-200 text-sm transition-colors"
                   >
                     {link.label}
                   </a>
@@ -66,7 +66,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#contact"
-                  className="text-zinc-500 hover:text-zinc-300 text-sm transition-colors"
+                  className="text-zinc-400 hover:text-zinc-200 text-sm transition-colors"
                 >
                   Contact
                 </a>

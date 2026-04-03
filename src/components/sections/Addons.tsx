@@ -45,7 +45,7 @@ export default function Addons() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.45, delay: i * 0.07 }}
                 whileHover={{ y: -5 }}
-                className="group rounded-2xl bg-zinc-900 border border-white/[0.07] hover:border-fuchsia-500/30 p-5 flex flex-col gap-4 cursor-default transition-all duration-200"
+                className="group rounded-2xl bg-zinc-800/70 border border-white/[0.09] hover:border-fuchsia-500/30 p-5 flex flex-col gap-4 cursor-default transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center group-hover:bg-fuchsia-500/15 transition-colors">
                   <Icon className="w-5 h-5 text-fuchsia-400" />
@@ -54,7 +54,7 @@ export default function Addons() {
                   <h3 className="text-white font-semibold text-sm mb-1">
                     {addon.name}
                   </h3>
-                  <p className="text-zinc-500 text-xs leading-relaxed">
+                  <p className="text-zinc-400 text-xs leading-relaxed">
                     {addon.description}
                   </p>
                 </div>

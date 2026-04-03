@@ -54,7 +54,7 @@ export default function Problem() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.06 }}
                 whileHover={{ y: -3 }}
-                className="group rounded-2xl bg-zinc-900 border border-white/[0.06] p-6 hover:border-red-500/20 transition-all duration-250"
+                className="group rounded-2xl bg-zinc-800/70 border border-white/[0.09] p-6 hover:border-red-500/25 transition-all duration-250"
               >
                 <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/15 flex items-center justify-center mb-5 group-hover:bg-red-500/15 transition-colors">
                   <Icon className="w-4 h-4 text-red-400" />
@@ -62,7 +62,7 @@ export default function Problem() {
                 <h3 className="text-white font-semibold text-[15px] mb-2">
                   {problem.title}
                 </h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">
+                <p className="text-zinc-400 text-sm leading-relaxed">
                   {problem.description}
                 </p>
               </motion.div>
@@ -77,7 +77,7 @@ export default function Problem() {
             transition={{ duration: 0.5, delay: problems.length * 0.06 }}
             className="hidden lg:flex flex-col items-start justify-between rounded-2xl border border-dashed border-white/[0.07] p-6"
           >
-            <p className="text-zinc-600 text-sm leading-relaxed">
+            <p className="text-zinc-500 text-sm leading-relaxed">
               Sound familiar? You&apos;re not alone — these are the most common
               issues we fix.
             </p>
