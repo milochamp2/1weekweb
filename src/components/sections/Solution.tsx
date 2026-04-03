@@ -14,18 +14,8 @@ export default function Solution() {
   return (
     <section
       id="solution"
-      className="py-24 sm:py-32 relative overflow-hidden"
-      style={{ background: "rgba(24,24,27,0.4)" }}
+      className="py-24 sm:py-32 relative overflow-hidden bg-gray-50"
     >
-      {/* Centered glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(217,70,239,0.05) 0%, transparent 70%)",
-        }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <motion.div
@@ -36,11 +26,11 @@ export default function Solution() {
           className="text-center mb-14 max-w-2xl mx-auto"
         >
           <span className="section-label">Our Approach</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
             Built for speed.
             <br className="hidden sm:block" /> Structured for conversions.
           </h2>
-          <p className="mt-4 text-zinc-400 text-base leading-relaxed">
+          <p className="mt-4 text-gray-600 text-base leading-relaxed">
             We build websites that generate leads — not just look good.
           </p>
         </motion.div>
@@ -56,25 +46,17 @@ export default function Solution() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -5, borderColor: "rgba(217,70,239,0.3)" }}
-                className="group relative rounded-2xl bg-zinc-800/70 border border-white/[0.10] p-7 transition-all duration-300 overflow-hidden"
+                whileHover={{ y: -5 }}
+                className="group relative rounded-2xl bg-white border border-gray-200 p-7 transition-all duration-300 hover:border-fuchsia-200 hover:shadow-lg"
+                style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
               >
-                {/* Hover inner glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse 60% 60% at 50% 0%, rgba(217,70,239,0.06) 0%, transparent 100%)",
-                  }}
-                />
-
-                <div className="w-11 h-11 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:bg-fuchsia-500/15 group-hover:border-fuchsia-500/30 transition-all duration-300">
-                  <Icon className="w-5 h-5 text-fuchsia-400" />
+                <div className="w-11 h-11 rounded-xl bg-fuchsia-50 border border-fuchsia-200 flex items-center justify-center mb-6 group-hover:bg-fuchsia-100 transition-all duration-300">
+                  <Icon className="w-5 h-5 text-fuchsia-500" />
                 </div>
-                <h3 className="text-white font-semibold text-lg mb-3">
+                <h3 className="text-gray-900 font-semibold text-lg mb-3">
                   {value.title}
                 </h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>

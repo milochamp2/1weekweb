@@ -49,7 +49,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-zinc-400 tracking-wide uppercase">
+      <label className="text-xs font-semibold text-gray-600 tracking-wide uppercase">
         {label}
         {required && <span className="text-fuchsia-500 ml-0.5">*</span>}
       </label>
@@ -59,20 +59,15 @@ function Field({
 }
 
 const inputCls =
-  "w-full px-4 py-3.5 rounded-xl bg-zinc-800/50 border border-white/[0.07] text-white text-sm placeholder-zinc-600 outline-none focus:border-fuchsia-500/50 focus:bg-zinc-800/80 transition-all duration-200";
+  "w-full px-4 py-3.5 rounded-xl bg-white border border-gray-200 text-gray-900 text-sm placeholder-gray-400 outline-none focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-100 transition-all duration-200";
 
-const selectCls = cn(
-  inputCls,
-  "appearance-none cursor-pointer"
-);
+const selectCls = cn(inputCls, "appearance-none cursor-pointer");
 
 function SelectWrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative">
       {children}
-      <ChevronDown
-        className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none"
-      />
+      <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
     </div>
   );
 }
@@ -102,18 +97,8 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="py-24 sm:py-32 relative overflow-hidden"
-      style={{ background: "rgba(24,24,27,0.4)" }}
+      className="py-24 sm:py-32 relative overflow-hidden bg-gray-50"
     >
-      {/* Glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] -translate-y-1/2 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(217,70,239,0.07) 0%, transparent 70%)",
-        }}
-      />
-
       <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <motion.div
@@ -124,10 +109,10 @@ export default function ContactForm() {
           className="text-center mb-10"
         >
           <span className="section-label">Get in Touch</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
             Tell us about your project
           </h2>
-          <p className="mt-4 text-zinc-400 text-base">
+          <p className="mt-4 text-gray-600 text-base">
             We&apos;ll be in touch within 1 business day.
           </p>
         </motion.div>
@@ -140,23 +125,19 @@ export default function ContactForm() {
         >
           {submitted ? (
             <div
-              className="rounded-2xl bg-zinc-900 border border-fuchsia-500/25 p-12 text-center flex flex-col items-center gap-5"
-              style={{ boxShadow: "0 0 60px -15px rgba(217,70,239,0.25)" }}
+              className="rounded-2xl bg-white border border-fuchsia-200 p-12 text-center flex flex-col items-center gap-5"
+              style={{ boxShadow: "0 4px 24px rgba(217,70,239,0.10)" }}
             >
               <div
-                className="w-16 h-16 rounded-full flex items-center justify-center"
-                style={{
-                  background: "rgba(217,70,239,0.1)",
-                  boxShadow: "0 0 30px -6px rgba(217,70,239,0.4)",
-                }}
+                className="w-16 h-16 rounded-full flex items-center justify-center bg-fuchsia-50 border border-fuchsia-200"
               >
-                <CheckCircle2 className="w-8 h-8 text-fuchsia-400" />
+                <CheckCircle2 className="w-8 h-8 text-fuchsia-500" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-xl mb-2">
+                <h3 className="text-gray-900 font-bold text-xl mb-2">
                   Message received!
                 </h3>
-                <p className="text-zinc-400 text-sm leading-relaxed max-w-sm">
+                <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
                   Thanks for reaching out. We&apos;ll review your details and be
                   in touch within 1 business day to schedule your free discovery
                   call.
@@ -167,7 +148,7 @@ export default function ContactForm() {
                   setSubmitted(false);
                   setForm(initialState);
                 }}
-                className="text-fuchsia-400 hover:text-fuchsia-300 text-sm underline underline-offset-4 transition-colors"
+                className="text-fuchsia-500 hover:text-fuchsia-600 text-sm underline underline-offset-4 transition-colors"
               >
                 Send another message
               </button>
@@ -175,8 +156,8 @@ export default function ContactForm() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-2xl bg-zinc-900 border border-white/[0.07] p-6 sm:p-8 flex flex-col gap-5"
-              style={{ boxShadow: "0 20px 60px -20px rgba(0,0,0,0.5)" }}
+              className="rounded-2xl bg-white border border-gray-200 p-6 sm:p-8 flex flex-col gap-5"
+              style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
             >
               {/* Name + Business */}
               <div className="grid sm:grid-cols-2 gap-5">
@@ -235,7 +216,7 @@ export default function ContactForm() {
                       Select an option...
                     </option>
                     {helpOptions.map((o) => (
-                      <option key={o} value={o} style={{ background: "#18181b" }}>
+                      <option key={o} value={o}>
                         {o}
                       </option>
                     ))}
@@ -250,11 +231,9 @@ export default function ContactForm() {
                     onChange={set("packageInterest")}
                     className={selectCls}
                   >
-                    <option value="" style={{ background: "#18181b" }}>
-                      Select a package...
-                    </option>
+                    <option value="">Select a package...</option>
                     {packageOptions.map((o) => (
-                      <option key={o} value={o} style={{ background: "#18181b" }}>
+                      <option key={o} value={o}>
                         {o}
                       </option>
                     ))}
@@ -266,8 +245,7 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-1 inline-flex items-center justify-center gap-2 w-full py-4 bg-fuchsia-500 hover:bg-fuchsia-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-200 text-sm group"
-                style={{ boxShadow: "0 0 30px -6px rgba(217,70,239,0.45)" }}
+                className="mt-1 inline-flex items-center justify-center gap-2 w-full py-4 bg-fuchsia-500 hover:bg-fuchsia-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-200 text-sm group shadow-lg shadow-fuchsia-500/20"
               >
                 {loading ? (
                   <>
@@ -282,7 +260,7 @@ export default function ContactForm() {
                 )}
               </button>
 
-              <p className="text-center text-zinc-600 text-xs">
+              <p className="text-center text-gray-400 text-xs">
                 We respond within 1 business day. No spam, ever.
               </p>
             </form>

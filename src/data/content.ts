@@ -209,27 +209,70 @@ export const processSteps = [
 export const projects = [
   {
     category: "Construction & Trades",
-    title: "Elite Plumbing Co.",
+    title: "Pezcrete",
     summary:
-      "A lead-focused website with booking integration and conversion-optimised layout built for a growing residential plumbing business.",
-    tags: ["Website", "Booking", "SEO"],
-    status: "coming-soon" as const,
+      "A modern, lead-focused website for a concrete specialist. Clean layout with clear CTAs designed to drive quote requests and phone enquiries.",
+    tags: ["Website", "SEO"],
+    image: "/portfolio%20images/pezcrete/pezcrete.png",
+    url: "https://pezcrete.vercel.app/",
   },
   {
-    category: "Health & Wellness",
-    title: "Recovery Studio",
+    category: "Health & Fitness",
+    title: "Hyperfit",
     summary:
-      "Full rebrand and website rebuild for a premium recovery therapy studio seeking more bookings and a modern online presence.",
-    tags: ["Website", "Funnel", "Automation"],
-    status: "coming-soon" as const,
+      "Full website build for a fitness brand. Conversion-focused design with membership CTAs and a bold visual identity that drives sign-ups.",
+    tags: ["Website", "Funnel"],
+    image: "/portfolio%20images/hyperfit/hyperfit.png",
+    url: "https://hyperfit.com.au/",
   },
   {
-    category: "Local Services",
-    title: "Cleanscapes",
+    category: "Construction & Building",
+    title: "Bayliss Building Group",
     summary:
-      "Mobile-first site with an integrated quote request funnel, helping a cleaning business double its enquiry rate.",
-    tags: ["Website", "Funnel", "Booking"],
-    status: "coming-soon" as const,
+      "Professional website for a building and construction company. Strong brand presence with a project showcase and streamlined enquiry flow.",
+    tags: ["Website", "Booking"],
+    image: "/portfolio%20images/bayliss%20building%20group/bayliss%20bldg%20group.png",
+    url: "https://bayliss-building-group.vercel.app/",
+  },
+  {
+    category: "Finance & Planning",
+    title: "BudgetFlow",
+    summary:
+      "Clean, trust-focused website for a financial planning service. Structured to build credibility and convert visitors into booked consultations.",
+    tags: ["Website", "Funnel", "SEO"],
+    image: "/portfolio%20images/budgetflow/budgetflow.png",
+    url: "https://financial-budget-planning.vercel.app/",
+  },
+];
+
+export const testimonials = [
+  {
+    name: "Jason P.",
+    role: "Owner, Pezcrete",
+    content:
+      "Got our site up in under a week. Looks professional, loads fast, and we've already had enquiries coming through the form. Exactly what we needed.",
+    rating: 5,
+  },
+  {
+    name: "Liam T.",
+    role: "Founder, Hyperfit",
+    content:
+      "We needed something that matched our brand and drove sign-ups. The result was better than expected — clean, modern, and it actually converts.",
+    rating: 5,
+  },
+  {
+    name: "Mark B.",
+    role: "Director, Bayliss Building Group",
+    content:
+      "Our old site was holding us back. The new one looks premium and has made a real difference in how we present to clients. Great experience throughout.",
+    rating: 5,
+  },
+  {
+    name: "Sarah M.",
+    role: "Founder, BudgetFlow",
+    content:
+      "Fast turnaround, clear communication, and the final product was exactly what we needed. The process was painless. Would 100% recommend.",
+    rating: 5,
   },
 ];
 

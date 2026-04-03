@@ -8,6 +8,7 @@ import Addons from "@/components/sections/Addons";
 import GrowthPlan from "@/components/sections/GrowthPlan";
 import Process from "@/components/sections/Process";
 import Work from "@/components/sections/Work";
+import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
 import ContactForm from "@/components/sections/ContactForm";
@@ -27,6 +28,7 @@ export default function Home() {
         <GrowthPlan />
         <Process />
         <Work />
+        <Testimonials />
         <FAQ />
         <FinalCTA />
         <ContactForm />
