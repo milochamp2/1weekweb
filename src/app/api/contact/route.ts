@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const OWNER_EMAIL = "alananoaj@gmail.com";
-const FROM = "1LaunchLayer <onboarding@resend.dev>";
+const FROM = "1LaunchLayer <alananoaj@gmail.com>";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://1launchlayer.vercel.app";
 
 interface ContactPayload {
@@ -228,11 +228,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Instantiate here so missing key only fails at runtime, not build time
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
 
     // 1. Notify the owner
-    await resend.emails.send({
+    await transporter.sendMail({
       from: FROM,
       to: OWNER_EMAIL,
       subject: `New enquiry from ${data.name} — ${data.businessName}`,
@@ -240,7 +245,7 @@ export async function POST(request: Request) {
     });
 
     // 2. Confirm to the enquirer
-    await resend.emails.send({
+    await transporter.sendMail({
       from: FROM,
       to: data.email,
       subject: `We received your enquiry — 1LaunchLayer`,
