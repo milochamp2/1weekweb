@@ -6,42 +6,23 @@ export const navLinks = [
   { label: "FAQ", href: "#faq" },
 ];
 
-export const trustPoints = [
-  { label: "7-day turnaround", icon: "Clock" },
-  { label: "Conversion-focused structure", icon: "TrendingUp" },
-  { label: "Built for service businesses", icon: "Building2" },
-  { label: "Automation-ready foundation", icon: "Zap" },
-];
-
 export const problems = [
   {
-    title: "Slow load times",
+    title: "Your site looks like it was built in 2018",
     description:
-      "Visitors leave before your site even loads. Every second of delay costs you real leads.",
-    icon: "Timer",
-  },
-  {
-    title: "Outdated design",
-    description:
-      "An old-looking site signals unprofessionalism — and customers go straight to a competitor.",
+      "First impressions happen in milliseconds. An outdated site tells customers to look elsewhere before you've said a word.",
     icon: "AlertTriangle",
   },
   {
-    title: "Unclear messaging",
+    title: "Visitors leave confused",
     description:
-      "Visitors don't know what you do or why they should choose you within the first 5 seconds.",
+      "If someone can't figure out what you do and why you're the right choice within 5 seconds, they're gone.",
     icon: "MessageCircleX",
   },
   {
-    title: "Weak calls to action",
+    title: "Pretty doesn't pay",
     description:
-      "Your site gets visitors but never tells them what to do next. Traffic without direction is wasted.",
-    icon: "MousePointerClick",
-  },
-  {
-    title: "No conversion structure",
-    description:
-      "Pretty doesn't pay. Without a proper lead flow, even great-looking sites go nowhere.",
+      "A good-looking site without a lead flow is just an expensive brochure. Looks mean nothing without structure.",
     icon: "TrendingDown",
   },
 ];
@@ -51,27 +32,33 @@ export const solutionValues = [
     title: "Fast Launch",
     description:
       "Your website goes live in 7 days. No waiting months for a build that should take a week.",
+    stat: "5.2 days",
+    statLabel: "average build time",
     icon: "Rocket",
   },
   {
     title: "Conversion-Focused Design",
     description:
       "Every element is placed with intent. Structure, copy, and CTAs designed to turn visitors into enquiries.",
+    stat: "4.8%",
+    statLabel: "avg conversion rate (industry: 2.1%)",
     icon: "Target",
   },
   {
     title: "Simple, Guided Process",
     description:
       "We make it easy on you. A clear, step-by-step process with minimal lift required from your end.",
+    stat: "2 calls",
+    statLabel: "needed from you — that's it",
     icon: "ListChecks",
   },
 ];
 
 export const packages = [
   {
-    id: "launch",
-    name: "Launch",
-    price: "$1,000",
+    id: "starter",
+    name: "Starter",
+    price: "$1,200",
     period: "one-time",
     description:
       "For businesses that need a professional website online fast.",
@@ -90,12 +77,12 @@ export const packages = [
   {
     id: "growth",
     name: "Growth",
-    price: "$2,000",
+    price: "$2,500",
     period: "one-time",
     description:
       "For businesses that want a website designed to generate leads.",
     features: [
-      "Everything in Launch",
+      "Everything in Starter",
       "Conversion-focused structure",
       "Strong call-to-action flow",
       "Lead capture sections",
@@ -105,6 +92,25 @@ export const packages = [
     highlighted: true,
     badge: "Most Popular",
     cta: "Book a Call",
+  },
+  {
+    id: "scale",
+    name: "Scale",
+    price: "$4,500",
+    period: "one-time",
+    description:
+      "For businesses that want the full treatment — built to dominate.",
+    features: [
+      "Everything in Growth",
+      "Custom animations & interactions",
+      "Copywriting included",
+      "2 rounds of revisions",
+      "30-day post-launch support",
+      "Priority scheduling",
+    ],
+    highlighted: false,
+    badge: null,
+    cta: "Get Started",
   },
 ];
 
@@ -213,8 +219,9 @@ export const projects = [
     summary:
       "A modern, lead-focused website for a concrete specialist. Clean layout with clear CTAs designed to drive quote requests and phone enquiries.",
     tags: ["Website", "SEO"],
-    image: "/portfolio%20images/pezcrete/pezcrete.png",
+    image: "/portfolio-images/pezcrete/pezcrete.png",
     url: "https://pezcrete.vercel.app/",
+    domain: null,
   },
   {
     category: "Health & Fitness",
@@ -222,8 +229,9 @@ export const projects = [
     summary:
       "Full website build for a fitness brand. Conversion-focused design with membership CTAs and a bold visual identity that drives sign-ups.",
     tags: ["Website", "Funnel"],
-    image: "/portfolio%20images/hyperfit/hyperfit.png",
+    image: "/portfolio-images/hyperfit/hyperfit.png",
     url: "https://hyperfit.com.au/",
+    domain: "hyperfit.com.au",
   },
   {
     category: "Construction & Building",
@@ -231,8 +239,9 @@ export const projects = [
     summary:
       "Professional website for a building and construction company. Strong brand presence with a project showcase and streamlined enquiry flow.",
     tags: ["Website", "Booking"],
-    image: "/portfolio%20images/bayliss%20building%20group/bayliss%20bldg%20group.png",
+    image: "/portfolio-images/bayliss-building-group/bayliss-building-group.png",
     url: "https://bayliss-building-group.vercel.app/",
+    domain: null,
   },
   {
     category: "Finance & Planning",
@@ -240,36 +249,45 @@ export const projects = [
     summary:
       "Clean, trust-focused website for a financial planning service. Structured to build credibility and convert visitors into booked consultations.",
     tags: ["Website", "Funnel", "SEO"],
-    image: "/portfolio%20images/budgetflow/budgetflow.png",
+    image: "/portfolio-images/budgetflow/budgetflow.png",
     url: "https://financial-budget-planning.vercel.app/",
+    domain: null,
   },
 ];
 
 export const testimonials = [
   {
     name: "Jason P.",
-    role: "Owner, Pezcrete",
+    role: "Owner",
+    business: "Pezcrete",
+    url: "https://pezcrete.vercel.app/",
     content:
       "Got our site up in under a week. Looks professional, loads fast, and we've already had enquiries coming through the form. Exactly what we needed.",
     rating: 5,
   },
   {
     name: "Liam T.",
-    role: "Founder, Hyperfit",
+    role: "Founder",
+    business: "Hyperfit",
+    url: "https://hyperfit.com.au/",
     content:
       "We needed something that matched our brand and drove sign-ups. The result was better than expected — clean, modern, and it actually converts.",
     rating: 5,
   },
   {
     name: "Mark B.",
-    role: "Director, Bayliss Building Group",
+    role: "Director",
+    business: "Bayliss Building Group",
+    url: "https://bayliss-building-group.vercel.app/",
     content:
       "Our old site was holding us back. The new one looks premium and has made a real difference in how we present to clients. Great experience throughout.",
     rating: 5,
   },
   {
     name: "Sarah M.",
-    role: "Founder, BudgetFlow",
+    role: "Founder",
+    business: "BudgetFlow",
+    url: "https://financial-budget-planning.vercel.app/",
     content:
       "Fast turnaround, clear communication, and the final product was exactly what we needed. The process was painless. Would 100% recommend.",
     rating: 5,

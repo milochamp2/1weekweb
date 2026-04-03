@@ -1,20 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Timer,
-  AlertTriangle,
-  MessageCircleX,
-  MousePointerClick,
-  TrendingDown,
-} from "lucide-react";
+import { AlertTriangle, MessageCircleX, TrendingDown } from "lucide-react";
 import { problems } from "@/data/content";
 
 const icons: Record<string, React.FC<{ className?: string }>> = {
-  Timer,
   AlertTriangle,
   MessageCircleX,
-  MousePointerClick,
   TrendingDown,
 };
 
@@ -42,8 +34,8 @@ export default function Problem() {
           </p>
         </motion.div>
 
-        {/* Problem cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Problem cards — 3 on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {problems.map((problem, i) => {
             const Icon = icons[problem.icon];
             return (
@@ -52,15 +44,18 @@ export default function Problem() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 whileHover={{ y: -3 }}
-                className="group rounded-2xl bg-white border border-gray-200 p-6 hover:border-red-200 hover:shadow-md transition-all duration-250"
+                className="group rounded-2xl bg-white border border-gray-200 p-7 hover:border-red-200 hover:shadow-md transition-all duration-250"
                 style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}
               >
-                <div className="w-9 h-9 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center mb-5 group-hover:bg-red-100 transition-colors">
-                  <Icon className="w-4 h-4 text-red-500" />
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-200"
+                  style={{ background: "#fff0ef", border: "1px solid #f8cac8" }}
+                >
+                  <Icon className="w-5 h-5" style={{ color: "#C4453C" }} />
                 </div>
-                <h3 className="text-gray-900 font-semibold text-[15px] mb-2">
+                <h3 className="text-gray-900 font-semibold text-[15px] mb-2 leading-snug">
                   {problem.title}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
@@ -69,27 +64,26 @@ export default function Problem() {
               </motion.div>
             );
           })}
+        </div>
 
-          {/* 6th cell — bridge to solution */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: problems.length * 0.06 }}
-            className="hidden lg:flex flex-col items-start justify-between rounded-2xl border border-dashed border-gray-300 p-6"
-          >
-            <p className="text-gray-500 text-sm leading-relaxed">
-              Sound familiar? You&apos;re not alone — these are the most common
-              issues we fix.
-            </p>
+        {/* Bridge */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-10 text-center"
+        >
+          <p className="text-gray-400 text-sm">
+            Sound familiar?{" "}
             <a
               href="#solution"
-              className="mt-4 inline-flex items-center gap-1.5 text-fuchsia-500 hover:text-fuchsia-600 text-sm font-medium transition-colors"
+              className="text-fuchsia-500 hover:text-fuchsia-600 font-medium transition-colors"
             >
               See how we fix it →
             </a>
-          </motion.div>
-        </div>
+          </p>
+        </motion.div>
       </div>
     </section>
   );

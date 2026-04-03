@@ -1,6 +1,5 @@
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import TrustStrip from "@/components/sections/TrustStrip";
 import Problem from "@/components/sections/Problem";
 import Solution from "@/components/sections/Solution";
 import Packages from "@/components/sections/Packages";
@@ -20,7 +19,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <TrustStrip />
         <Problem />
         <Solution />
         <Packages />

@@ -83,22 +83,19 @@ export default function Hero() {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div
-              {...fade(0.34)}
-              className="flex flex-col sm:flex-row gap-3"
-            >
+            <motion.div {...fade(0.34)} className="flex flex-col gap-3">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-bold rounded-full transition-all duration-200 text-sm group shadow-lg shadow-fuchsia-500/25"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-full transition-all duration-200 text-sm group shadow-lg shadow-gray-900/20 hover:shadow-xl hover:shadow-gray-900/25 hover:scale-[1.02] w-fit"
               >
                 Book a Free Discovery Call
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-4 text-gray-700 hover:text-gray-900 font-semibold rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 text-sm"
+                className="text-gray-500 hover:text-fuchsia-500 text-sm font-medium transition-colors pl-1"
               >
-                Get a Free Website Audit
+                or send us an inquiry →
               </a>
             </motion.div>
 

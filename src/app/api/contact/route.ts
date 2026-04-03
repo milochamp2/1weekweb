@@ -9,11 +9,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://1launchlayer.verce
 
 async function getLogoSrc(): Promise<string> {
   try {
-    const logoPath = path.join(process.cwd(), "public", "1launchlayer logo", "launch layer logo.png");
+    const logoPath = path.join(process.cwd(), "public", "logo", "logo.png");
     const resized = await sharp(logoPath).resize(64, 64, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
     return `data:image/png;base64,${resized.toString("base64")}`;
   } catch {
-    return `${SITE_URL}/1launchlayer%20logo/launch%20layer%20logo.png`;
+    return `${SITE_URL}/logo/logo.png`;
   }
 }
 

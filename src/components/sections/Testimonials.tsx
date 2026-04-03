@@ -40,10 +40,7 @@ export default function Testimonials() {
               {/* Stars */}
               <div className="flex gap-0.5">
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star
-                    key={j}
-                    className="w-4 h-4 text-amber-400 fill-amber-400"
-                  />
+                  <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
                 ))}
               </div>
 
@@ -63,7 +60,17 @@ export default function Testimonials() {
                   <p className="text-gray-900 text-sm font-semibold leading-tight">
                     {t.name}
                   </p>
-                  <p className="text-gray-400 text-xs">{t.role}</p>
+                  <p className="text-gray-400 text-xs">
+                    {t.role},{" "}
+                    <a
+                      href={t.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-fuchsia-500 hover:text-fuchsia-600 transition-colors"
+                    >
+                      {t.business}
+                    </a>
+                  </p>
                 </div>
               </div>
             </motion.div>

@@ -39,17 +39,19 @@ export default function Work() {
         {/* Project cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           {projects.map((project, i) => (
-            <motion.div
+            <motion.a
               key={project.title}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group relative rounded-2xl bg-white border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex flex-col"
+              className="group relative rounded-2xl bg-white border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-xl transition-all duration-300 flex flex-col"
               style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}
             >
-              {/* Screenshot */}
+              {/* Screenshot with hover overlay */}
               <div className="relative h-44 overflow-hidden bg-gray-100">
                 <Image
                   src={project.image}
@@ -58,12 +60,29 @@ export default function Work() {
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                 />
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/60 transition-all duration-300 flex items-center justify-center">
+                  <span className="text-white font-semibold text-sm flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                    View Project →
+                  </span>
+                </div>
+
                 {/* Category pill */}
                 <div className="absolute top-3 left-3">
                   <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-gray-600 text-xs border border-gray-200 font-medium">
                     {project.category}
                   </span>
                 </div>
+
+                {/* Custom domain badge */}
+                {project.domain && (
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2.5 py-1 rounded-full bg-fuchsia-500/90 backdrop-blur-sm text-white text-[11px] font-semibold">
+                      {project.domain}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Content */}
@@ -87,18 +106,13 @@ export default function Work() {
                   ))}
                 </div>
 
-                {/* Live link */}
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-fuchsia-500 hover:text-fuchsia-600 text-sm font-semibold transition-colors group/btn"
-                >
-                  View live site
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                </a>
+                {/* Link — "View Project" for vercel.app, real domain otherwise */}
+                <span className="inline-flex items-center gap-1.5 text-fuchsia-500 group-hover:text-fuchsia-600 text-sm font-semibold transition-colors">
+                  {project.domain ? project.domain : "View Project"}
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>

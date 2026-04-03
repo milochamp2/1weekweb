@@ -33,7 +33,7 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 group">
             <Image
-              src="/1launchlayer logo/launch layer logo.png"
+              src="/logo/logo.png"
               alt="1LaunchLayer logo"
               width={32}
               height={32}

@@ -101,7 +101,7 @@ function SuccessState({
         {/* Brand */}
         <div className="flex items-center gap-2.5">
           <Image
-            src="/1launchlayer logo/launch layer logo.png"
+            src="/logo/logo.png"
             alt="1LaunchLayer"
             width={36}
             height={36}

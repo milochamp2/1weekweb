@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { Rocket, Target, ListChecks } from "lucide-react";
 import { solutionValues } from "@/data/content";
 
@@ -9,6 +10,30 @@ const icons: Record<string, React.FC<{ className?: string }>> = {
   Target,
   ListChecks,
 };
+
+function StatBadge({ stat, label }: { stat: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (inView) setVisible(true);
+  }, [inView]);
+
+  return (
+    <div
+      ref={ref}
+      className={`mt-5 pt-5 border-t border-gray-100 transition-all duration-500 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+      }`}
+    >
+      <p className="text-fuchsia-500 font-black text-2xl tracking-tight leading-none">
+        {stat}
+      </p>
+      <p className="text-gray-400 text-xs mt-1 leading-snug">{label}</p>
+    </div>
+  );
+}
 
 export default function Solution() {
   return (
@@ -59,6 +84,7 @@ export default function Solution() {
                 <p className="text-gray-500 text-sm leading-relaxed">
                   {value.description}
                 </p>
+                <StatBadge stat={value.stat} label={value.statLabel} />
               </motion.div>
             );
           })}
