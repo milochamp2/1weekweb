@@ -33,7 +33,7 @@ export default function Footer() {
                 <Layers className="w-4 h-4 text-white" strokeWidth={2.5} />
               </div>
               <span className="text-white font-bold text-[17px] tracking-tight">
-                Launch<span className="text-fuchsia-400">Layer</span>
+                1Week<span className="text-fuchsia-400">Web</span>
               </span>
             </a>
             <p className="text-zinc-500 text-sm leading-relaxed max-w-[220px]">
@@ -115,10 +115,10 @@ export default function Footer() {
           className="flex flex-col sm:flex-row items-center justify-between gap-3"
         >
           <p className="text-zinc-500 text-xs">
-            © {currentYear} LaunchLayer. All rights reserved.
+            © {currentYear} 1WeekWeb. All rights reserved.
           </p>
           <p className="text-zinc-600 text-xs">
-            Built by LaunchLayer · Australia
+            Built by 1WeekWeb · Australia
           </p>
         </motion.div>
       </div>

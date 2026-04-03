@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "LaunchLayer — High-Converting Websites in 7 Days",
+  title: "1WeekWeb — High-Converting Websites in 7 Days",
   description:
-    "LaunchLayer builds high-converting websites for Australian service businesses. Fast builds, clear structure, lead-focused design — live in 7 days.",
+    "1WeekWeb builds high-converting websites for Australian service businesses. Fast builds, clear structure, lead-focused design — live in 7 days.",
   keywords:
     "website design, web development, lead generation, service business, Australia, 7 day website",
 };
