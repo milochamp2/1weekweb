@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import CursorTrail from "@/components/CursorTrail";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://1launchlayer.com.au"),
@@ -73,6 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased">
+        <CursorTrail />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
