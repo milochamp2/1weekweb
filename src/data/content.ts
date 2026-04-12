@@ -56,12 +56,12 @@ export const solutionValues = [
 
 export const packages = [
   {
-    id: "starter",
-    name: "Starter",
-    price: "$1,200",
+    id: "fast",
+    name: "Fast",
+    price: "$1,500",
     period: "one-time",
     description:
-      "For businesses that need a professional website online fast.",
+      "Get a clean, modern website online in 7 days. Everything you need to launch fast.",
     features: [
       "1–5 pages",
       "Mobile-optimized design",
@@ -75,14 +75,14 @@ export const packages = [
     cta: "Get Started",
   },
   {
-    id: "growth",
-    name: "Growth",
-    price: "$2,500",
+    id: "professional",
+    name: "Professional",
+    price: "$1,500",
     period: "one-time",
     description:
-      "For businesses that want a website designed to generate leads.",
+      "A conversion-focused website built to generate leads and grow your business.",
     features: [
-      "Everything in Starter",
+      "Everything in Fast",
       "Conversion-focused structure",
       "Strong call-to-action flow",
       "Lead capture sections",
@@ -92,25 +92,6 @@ export const packages = [
     highlighted: true,
     badge: "Most Popular",
     cta: "Book a Call",
-  },
-  {
-    id: "scale",
-    name: "Scale",
-    price: "$4,500",
-    period: "one-time",
-    description:
-      "For businesses that want the full treatment — built to dominate.",
-    features: [
-      "Everything in Growth",
-      "Custom animations & interactions",
-      "Copywriting included",
-      "2 rounds of revisions",
-      "30-day post-launch support",
-      "Priority scheduling",
-    ],
-    highlighted: false,
-    badge: null,
-    cta: "Get Started",
   },
 ];
 

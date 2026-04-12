@@ -7,9 +7,8 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const packageOptions = [
-  "Starter — $1,200",
-  "Growth — $2,500",
-  "Scale — $4,500",
+  "Fast — $1,500",
+  "Professional — $1,500",
   "Not sure yet",
 ];
 
