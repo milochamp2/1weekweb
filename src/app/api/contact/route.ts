@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import nodemailer from "nodemailer";
 import path from "path";
 
@@ -292,13 +292,9 @@ export async function POST(request: Request) {
       },
     });
 
-    // 5-second delay before sending the email
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    await transporter.sendMail({
+    const mailOptions = {
       from: FROM,
       to: OWNER_EMAIL,
-      // stripNewlines already applied — CRLF injection prevented
       subject: `⚡ New enquiry from ${name} — ${businessName}`,
       html: ownerEmail({ name, businessName, email, website, help, packageInterest }),
       attachments: [
@@ -308,6 +304,12 @@ export async function POST(request: Request) {
           cid: LOGO_CID,
         },
       ],
+    };
+
+    // Respond to the form immediately, then send the email 5 seconds later
+    after(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await transporter.sendMail(mailOptions);
     });
 
     return NextResponse.json({ success: true });
