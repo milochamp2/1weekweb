@@ -5,7 +5,7 @@ import path from "path";
 const OWNER_EMAIL = "alananoaj@gmail.com";
 const FROM = "1LaunchLayer <alananoaj@gmail.com>";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://1launchlayer.com.au";
-const LOGO_PATH = path.join(process.cwd(), "public", "logo", "logo.png");
+const LOGO_PATH = path.join(process.cwd(), "public", "logo", "logo_polished.png");
 const LOGO_CID = "logo@1launchlayer";
 
 interface ContactPayload {
@@ -179,7 +179,7 @@ export async function POST(request: Request) {
       html: ownerEmail(data),
       attachments: [
         {
-          filename: "logo.png",
+          filename: "logo_polished.png",
           path: LOGO_PATH,
           cid: LOGO_CID,
         },

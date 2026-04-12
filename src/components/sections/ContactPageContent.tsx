@@ -98,7 +98,7 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
       <div className="h-1 w-full" style={{ background: "linear-gradient(90deg, #d946ef, #a855f7, #6366f1)" }} />
       <div className="p-8 sm:p-10 flex flex-col items-center text-center gap-6">
         <div className="flex items-center gap-2.5">
-          <Image src="/logo/logo.png" alt="1LaunchLayer logo" width={36} height={36} className="shrink-0" />
+          <Image src="/logo/logo_polished.png" alt="1LaunchLayer logo" width={36} height={36} className="shrink-0" />
           <span className="text-white font-bold text-lg tracking-tight">
             1Launch<span className="text-fuchsia-400">Layer</span>
           </span>

@@ -102,7 +102,7 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
         {/* Brand */}
         <div className="flex items-center gap-2.5">
           <Image
-            src="/logo/logo.png"
+            src="/logo/logo_polished.png"
             alt="1LaunchLayer logo"
             width={36}
             height={36}
