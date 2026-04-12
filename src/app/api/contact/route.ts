@@ -225,10 +225,11 @@ function ownerEmail(d: {
 // ─── Route handler ────────────────────────────────────────────────────────────
 export async function POST(request: Request) {
   try {
-    // 1. Origin check — reject cross-origin requests
+    // 1. Origin check — warn on unknown origins, but don't block
+    // (rate limiting + input validation are the primary defences for a contact form)
     const origin = request.headers.get("origin");
     if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      console.warn(`[contact] Unexpected origin: ${origin}`);
     }
 
     // 2. Content-Type check

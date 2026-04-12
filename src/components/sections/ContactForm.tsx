@@ -210,10 +210,18 @@ export default function ContactForm() {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error("Send failed");
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(json?.error ?? "Send failed");
+      }
       setSubmitted(true);
-    } catch {
-      setError("Something went wrong. Please try again or email us directly.");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : null;
+      setError(msg && msg !== "Send failed"
+        ? msg
+        : "Something went wrong. Please try again or email us directly."
+      );
     } finally {
       setLoading(false);
     }
