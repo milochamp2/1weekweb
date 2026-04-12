@@ -204,16 +204,13 @@ export default function ContactForm() {
     setError(null);
 
     try {
-      const [res] = await Promise.all([
-        fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }),
-        new Promise((resolve) => setTimeout(resolve, 5000)),
-      ]);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-      const json = await (res as Response).json().catch(() => ({}));
+      const json = await res.json().catch(() => ({}));
 
       if (!res.ok) {
         throw new Error(json?.error ?? "Send failed");

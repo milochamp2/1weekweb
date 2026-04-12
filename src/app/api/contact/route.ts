@@ -292,6 +292,9 @@ export async function POST(request: Request) {
       },
     });
 
+    // 5-second delay before sending the email
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
     await transporter.sendMail({
       from: FROM,
       to: OWNER_EMAIL,
