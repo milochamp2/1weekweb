@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const packageOptions = [
   "Fast — $1,500",
-  "Professional — $1,500",
+  "Professional — $1,900",
   "Not sure yet",
 ];
 

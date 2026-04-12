@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const packageOptions = [
   "Fast — $1,500",
-  "Professional — $1,500",
+  "Professional — $1,900",
   "Not sure yet",
 ];
 
@@ -289,7 +289,7 @@ export default function ContactPageContent() {
                 <div className="flex flex-col gap-3">
                   {[
                     { name: "Fast", price: "$1,500", desc: "Launch in 7 days" },
-                    { name: "Professional", price: "$1,500", desc: "Conversion-focused" },
+                    { name: "Professional", price: "$1,900", desc: "Conversion-focused" },
                   ].map((pkg) => (
                     <div key={pkg.name} className="flex items-center justify-between">
                       <div>

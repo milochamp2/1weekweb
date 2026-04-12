@@ -77,7 +77,8 @@ export const packages = [
   {
     id: "professional",
     name: "Professional",
-    price: "$1,500",
+    price: "$1,900",
+    originalPrice: "$2,500",
     period: "one-time",
     description:
       "A conversion-focused website built to generate leads and grow your business.",

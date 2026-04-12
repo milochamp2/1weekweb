@@ -113,7 +113,7 @@ export default function Packages() {
                     </span>
                   </div>
 
-                  <div className="mb-3">
+                  <div className="mb-3 flex items-baseline gap-2.5">
                     <span
                       className={cn(
                         "font-black tracking-tight leading-none text-gray-900",
@@ -122,6 +122,11 @@ export default function Packages() {
                     >
                       {pkg.price}
                     </span>
+                    {pkg.originalPrice && (
+                      <span className="text-lg font-semibold text-gray-400 line-through">
+                        {pkg.originalPrice}
+                      </span>
+                    )}
                   </div>
 
                   <p className="text-gray-500 text-sm leading-relaxed mb-6">
