@@ -38,17 +38,17 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-[70px]">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
+          <a href="#home" className="flex items-center gap-3 group">
             <Image
               src="/logo/logo.png"
               alt="1LaunchLayer logo"
-              width={32}
-              height={32}
+              width={48}
+              height={48}
               className="shrink-0"
             />
-            <span className="text-white font-bold text-[17px] tracking-tight">
+            <span className="text-white font-bold text-2xl tracking-tight">
               1Launch<span className="text-fuchsia-400">Layer</span>
             </span>
           </a>
@@ -59,7 +59,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-gray-400 hover:text-white text-sm font-medium transition-colors rounded-lg hover:bg-white/5"
+                className="px-5 py-2.5 text-gray-400 hover:text-white text-base font-medium transition-colors rounded-lg hover:bg-white/5"
               >
                 {link.label}
               </a>
@@ -70,7 +70,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <a
               href="#contact"
-              className="inline-flex items-center px-5 py-2.5 bg-fuchsia-500 hover:bg-fuchsia-400 text-white text-sm font-semibold rounded-full transition-all duration-200 shadow-md shadow-fuchsia-500/20"
+              className="inline-flex items-center px-6 py-3 bg-fuchsia-500 hover:bg-fuchsia-400 text-white text-base font-semibold rounded-full transition-all duration-200 shadow-md shadow-fuchsia-500/20"
             >
               Book a Call
             </a>
