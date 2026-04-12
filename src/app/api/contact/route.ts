@@ -17,31 +17,13 @@ interface ContactPayload {
   packageInterest?: string;
 }
 
-// ─── Inline SVG icons (base64, Gmail-safe) ───────────────────────────────────
-function svgIcon(paths: string, color = "#d946ef"): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
-  return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
-}
-
-const ICONS = {
-  user:    svgIcon('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'),
-  biz:     svgIcon('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>'),
-  email:   svgIcon('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/>'),
-  globe:   svgIcon('<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'),
-  chat:    svgIcon('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'),
-  package: svgIcon('<path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>'),
-  bolt:    svgIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', "#f0e6ff"),
-};
-
-// ─── Detail row ───────────────────────────────────────────────────────────────
-function detailRow(iconSrc: string, label: string, value: string): string {
+// ─── Detail row (emoji icons — universally supported in Gmail) ───────────────
+function detailRow(icon: string, label: string, value: string): string {
   return `
   <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:16px;">
     <tr>
       <td style="vertical-align:middle;width:36px;">
-        <div style="width:32px;height:32px;background:rgba(217,70,239,0.1);border:1px solid rgba(217,70,239,0.22);border-radius:8px;text-align:center;line-height:32px;">
-          <img src="${iconSrc}" width="14" height="14" alt="" style="vertical-align:middle;margin-top:-1px;" />
-        </div>
+        <div style="width:32px;height:32px;background:rgba(217,70,239,0.1);border:1px solid rgba(217,70,239,0.22);border-radius:8px;text-align:center;line-height:30px;font-size:15px;">${icon}</div>
       </td>
       <td style="vertical-align:middle;padding-left:12px;">
         <span style="display:block;font-size:10px;font-weight:700;color:#6b5e8e;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;">${label}</span>
@@ -110,18 +92,9 @@ function ownerEmail(d: ContactPayload): string {
                 <td style="padding:38px 44px 34px;vertical-align:top;">
 
                   <!-- Badge -->
-                  <table cellpadding="0" cellspacing="0"><tr><td>
-                    <span style="display:inline-table;background:rgba(217,70,239,0.13);border:1px solid rgba(217,70,239,0.38);border-radius:99px;padding:5px 16px;">
-                      <table cellpadding="0" cellspacing="0"><tr>
-                        <td style="vertical-align:middle;padding-right:6px;">
-                          <img src="${ICONS.bolt}" width="12" height="12" alt="" style="display:block;" />
-                        </td>
-                        <td style="vertical-align:middle;">
-                          <span style="font-size:10.5px;font-weight:700;color:#e879f9;letter-spacing:0.12em;text-transform:uppercase;">New Lead</span>
-                        </td>
-                      </tr></table>
-                    </span>
-                  </td></tr></table>
+                  <span style="display:inline-block;background:rgba(217,70,239,0.13);border:1px solid rgba(217,70,239,0.38);border-radius:99px;padding:5px 16px;font-size:10.5px;font-weight:700;color:#e879f9;letter-spacing:0.12em;text-transform:uppercase;">
+                    &#9889; New Lead
+                  </span>
 
                   <!-- Headline -->
                   <h1 style="margin:20px 0 0;font-size:33px;font-weight:800;color:#f0e6ff;letter-spacing:-0.03em;line-height:1.2;">
@@ -150,19 +123,19 @@ function ownerEmail(d: ContactPayload): string {
               <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:4px;">
                 <tr>
                   <td style="width:50%;vertical-align:top;padding-right:10px;">
-                    ${detailRow(ICONS.user, "Name", d.name)}
+                    ${detailRow("👤", "Name", d.name)}
                   </td>
                   <td style="width:50%;vertical-align:top;padding-left:10px;">
-                    ${detailRow(ICONS.biz, "Business", d.businessName)}
+                    ${detailRow("🏢", "Business", d.businessName)}
                   </td>
                 </tr>
               </table>
 
               <!-- Full-width rows -->
-              ${detailRow(ICONS.email, "Email", `<a href="mailto:${d.email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.email}</a>`)}
-              ${d.website ? detailRow(ICONS.globe, "Website", `<a href="${d.website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.website}</a>`) : ""}
-              ${detailRow(ICONS.chat, "Needs help with", d.help || "—")}
-              ${d.packageInterest ? detailRow(ICONS.package, "Package interest", `<span style="display:inline-block;background:rgba(217,70,239,0.14);border:1px solid rgba(217,70,239,0.32);color:#e879f9;padding:4px 13px;border-radius:6px;font-size:13px;font-weight:600;">${d.packageInterest}</span>`) : ""}
+              ${detailRow("✉️", "Email", `<a href="mailto:${d.email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.email}</a>`)}
+              ${d.website ? detailRow("🌐", "Website", `<a href="${d.website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.website}</a>`) : ""}
+              ${detailRow("💬", "Needs help with", d.help || "—")}
+              ${d.packageInterest ? detailRow("📦", "Package interest", `<span style="display:inline-block;background:rgba(217,70,239,0.14);border:1px solid rgba(217,70,239,0.32);color:#e879f9;padding:4px 13px;border-radius:6px;font-size:13px;font-weight:600;">${d.packageInterest}</span>`) : ""}
 
             </td></tr>
 
@@ -178,7 +151,7 @@ function ownerEmail(d: ContactPayload): string {
                 ${d.website ? `<td>
                   <a href="${d.website}" target="_blank"
                      style="display:inline-block;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#8b7aaa;font-size:14px;font-weight:600;text-decoration:none;padding:14px 22px;border-radius:10px;">
-                    View site &nearr;
+                    View site &#8599;
                   </a>
                 </td>` : ""}
               </tr></table>
