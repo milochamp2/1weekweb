@@ -8,16 +8,65 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://1launchlayer.com.a
 const LOGO_PATH = path.join(process.cwd(), "public", "logo", "logo_polished.png");
 const LOGO_CID = "logo@1launchlayer";
 
-interface ContactPayload {
-  name: string;
-  businessName: string;
-  email: string;
-  website?: string;
-  help: string;
-  packageInterest?: string;
+// ─── Allowed origins ──────────────────────────────────────────────────────────
+const ALLOWED_ORIGINS = [
+  "https://1launchlayer.com.au",
+  "https://www.1launchlayer.com.au",
+  "https://1launchlayer.vercel.app",
+  // Allow localhost in dev
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
+
+// ─── Simple in-memory rate limiter (max 3 requests per IP per 10 minutes) ────
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  entry.count++;
+  return false;
 }
 
-// ─── Detail row (emoji icons — universally supported in Gmail) ───────────────
+// ─── Input sanitisation ───────────────────────────────────────────────────────
+/** Escape HTML special characters to prevent injection in email body */
+function esc(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Strip newlines and carriage returns to prevent email header injection */
+function stripNewlines(str: string): string {
+  return str.replace(/[\r\n]/g, " ").trim();
+}
+
+/** Validate email format */
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/** Validate URL — must be http or https only */
+function isSafeUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+// ─── Detail row ───────────────────────────────────────────────────────────────
 function detailRow(icon: string, label: string, value: string): string {
   return `
   <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:16px;">
@@ -34,13 +83,29 @@ function detailRow(icon: string, label: string, value: string): string {
 }
 
 // ─── Owner notification ───────────────────────────────────────────────────────
-function ownerEmail(d: ContactPayload): string {
+function ownerEmail(d: {
+  name: string;
+  businessName: string;
+  email: string;
+  website?: string;
+  help: string;
+  packageInterest?: string;
+}): string {
   const now = new Date().toLocaleDateString("en-AU", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  // All values are pre-escaped before being used in HTML
+  const name     = esc(d.name);
+  const biz      = esc(d.businessName);
+  const email    = esc(d.email);
+  const help     = esc(d.help);
+  const pkg      = d.packageInterest ? esc(d.packageInterest) : "";
+  // Website: only render if it passed isSafeUrl validation
+  const website  = d.website ? esc(d.website) : "";
 
   return `
 <!DOCTYPE html>
@@ -52,12 +117,11 @@ function ownerEmail(d: ContactPayload): string {
 </head>
 <body style="margin:0;padding:0;background:#0f0825;font-family:'Inter',Arial,sans-serif;">
 
-  <!-- Outer wrapper -->
   <table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(180deg,#140a30 0%,#0a051a 100%);padding:36px 16px 48px;">
     <tr><td align="center">
       <table width="580" cellpadding="0" cellspacing="0" style="max-width:580px;width:100%;">
 
-        <!-- ── Brand bar ── -->
+        <!-- Brand bar -->
         <tr><td style="padding-bottom:22px;">
           <table cellpadding="0" cellspacing="0" width="100%"><tr>
             <td style="vertical-align:middle;">
@@ -76,80 +140,63 @@ function ownerEmail(d: ContactPayload): string {
           </tr></table>
         </td></tr>
 
-        <!-- ── Main card ── -->
-        <tr><td style="border-radius:20px;overflow:hidden;border:1px solid rgba(217,70,239,0.22);background:#1a1042;"
-                bgcolor="#1a1042">
+        <!-- Main card -->
+        <tr><td style="border-radius:20px;overflow:hidden;border:1px solid rgba(217,70,239,0.22);background:#1a1042;" bgcolor="#1a1042">
           <table width="100%" cellpadding="0" cellspacing="0">
 
             <!-- Top gradient stripe -->
             <tr><td style="height:3px;background:linear-gradient(90deg,transparent 0%,#c026d3 30%,#a855f7 70%,transparent 100%);font-size:0;line-height:0;">&nbsp;</td></tr>
 
-            <!-- ── Hero ── -->
+            <!-- Hero -->
             <tr><td style="background:linear-gradient(140deg,#2e1965 0%,#1e1150 55%,#180e48 100%);padding:0;border-bottom:1px solid rgba(255,255,255,0.07);">
               <table cellpadding="0" cellspacing="0" width="100%"><tr>
-
-                <!-- Hero text -->
                 <td style="padding:38px 44px 34px;vertical-align:top;">
-
-                  <!-- Badge -->
                   <span style="display:inline-block;background:rgba(217,70,239,0.13);border:1px solid rgba(217,70,239,0.38);border-radius:99px;padding:5px 16px;font-size:10.5px;font-weight:700;color:#e879f9;letter-spacing:0.12em;text-transform:uppercase;">
                     &#9889; New Lead
                   </span>
-
-                  <!-- Headline -->
                   <h1 style="margin:20px 0 0;font-size:33px;font-weight:800;color:#f0e6ff;letter-spacing:-0.03em;line-height:1.2;">
-                    ${d.name}<br/>
+                    ${name}<br/>
                     <span style="color:#d946ef;">wants to talk.</span>
                   </h1>
-
-                  <!-- Sub -->
                   <p style="margin:14px 0 0;font-size:14.5px;color:#8b7aaa;line-height:1.65;">
-                    New enquiry from&nbsp;<strong style="color:#c4b5e8;font-weight:600;">${d.businessName}</strong>. Here&apos;s everything you need to follow up.
+                    New enquiry from&nbsp;<strong style="color:#c4b5e8;font-weight:600;">${biz}</strong>. Here&apos;s everything you need to follow up.
                   </p>
                 </td>
-
-                <!-- Hero logo watermark -->
                 <td style="width:110px;vertical-align:bottom;padding:0 28px 18px 0;text-align:right;">
-                  <img src="cid:${LOGO_CID}" width="88" height="88" alt="" style="display:block;margin-left:auto;opacity:0.07;filter:blur(0px);" />
+                  <img src="cid:${LOGO_CID}" width="88" height="88" alt="" style="display:block;margin-left:auto;opacity:0.07;" />
                 </td>
-
               </tr></table>
             </td></tr>
 
-            <!-- ── Details ── -->
+            <!-- Details -->
             <tr><td style="padding:30px 44px 24px;background:#16103e;border-bottom:1px solid rgba(255,255,255,0.06);">
-
-              <!-- 2-col mini grid for name + business -->
               <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:4px;">
                 <tr>
                   <td style="width:50%;vertical-align:top;padding-right:10px;">
-                    ${detailRow("👤", "Name", d.name)}
+                    ${detailRow("👤", "Name", name)}
                   </td>
                   <td style="width:50%;vertical-align:top;padding-left:10px;">
-                    ${detailRow("🏢", "Business", d.businessName)}
+                    ${detailRow("🏢", "Business", biz)}
                   </td>
                 </tr>
               </table>
-
-              <!-- Full-width rows -->
-              ${detailRow("✉️", "Email", `<a href="mailto:${d.email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.email}</a>`)}
-              ${d.website ? detailRow("🌐", "Website", `<a href="${d.website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${d.website}</a>`) : ""}
-              ${detailRow("💬", "Needs help with", d.help || "—")}
-              ${d.packageInterest ? detailRow("📦", "Package interest", `<span style="display:inline-block;background:rgba(217,70,239,0.14);border:1px solid rgba(217,70,239,0.32);color:#e879f9;padding:4px 13px;border-radius:6px;font-size:13px;font-weight:600;">${d.packageInterest}</span>`) : ""}
-
+              ${detailRow("✉️", "Email", `<a href="mailto:${email}" style="color:#d946ef;text-decoration:none;font-weight:600;">${email}</a>`)}
+              ${website ? detailRow("🌐", "Website", `<a href="${website}" style="color:#d946ef;text-decoration:none;font-weight:600;">${website}</a>`) : ""}
+              ${detailRow("💬", "Needs help with", help)}
+              ${pkg ? detailRow("📦", "Package interest", `<span style="display:inline-block;background:rgba(217,70,239,0.14);border:1px solid rgba(217,70,239,0.32);color:#e879f9;padding:4px 13px;border-radius:6px;font-size:13px;font-weight:600;">${pkg}</span>`) : ""}
             </td></tr>
 
-            <!-- ── CTA ── -->
+            <!-- CTA -->
             <tr><td style="padding:28px 44px 34px;background:#1a1042;">
               <table cellpadding="0" cellspacing="0"><tr>
                 <td style="padding-right:12px;">
-                  <a href="mailto:${d.email}?subject=Re: Your enquiry to 1LaunchLayer"
+                  <a href="mailto:${email}?subject=Re: Your enquiry to 1LaunchLayer"
                      style="display:inline-block;background:linear-gradient(135deg,#d946ef 0%,#a855f7 100%);color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:10px;letter-spacing:-0.01em;">
-                    Reply to ${d.name} &rarr;
+                    Reply to ${name} &rarr;
                   </a>
                 </td>
-                ${d.website ? `<td>
-                  <a href="${d.website}" target="_blank"
+                ${website ? `<td>
+                  <a href="${website}" target="_blank"
                      style="display:inline-block;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#8b7aaa;font-size:14px;font-weight:600;text-decoration:none;padding:14px 22px;border-radius:10px;">
                     View site &#8599;
                   </a>
@@ -160,7 +207,7 @@ function ownerEmail(d: ContactPayload): string {
           </table>
         </td></tr>
 
-        <!-- ── Footer ── -->
+        <!-- Footer -->
         <tr><td style="padding-top:26px;text-align:center;">
           <p style="margin:0;font-size:11.5px;color:#2e2250;">
             Sent by 1LaunchLayer contact form &middot;
@@ -171,7 +218,6 @@ function ownerEmail(d: ContactPayload): string {
       </table>
     </td></tr>
   </table>
-
 </body>
 </html>`;
 }
@@ -179,11 +225,63 @@ function ownerEmail(d: ContactPayload): string {
 // ─── Route handler ────────────────────────────────────────────────────────────
 export async function POST(request: Request) {
   try {
-    const data: ContactPayload = await request.json();
+    // 1. Origin check — reject cross-origin requests
+    const origin = request.headers.get("origin");
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
-    if (!data.name || !data.email || !data.businessName || !data.help) {
+    // 2. Content-Type check
+    const contentType = request.headers.get("content-type") ?? "";
+    if (!contentType.includes("application/json")) {
+      return NextResponse.json({ error: "Invalid content type" }, { status: 400 });
+    }
+
+    // 3. Rate limiting by IP
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+
+    // 4. Parse body
+    let data: Record<string, unknown>;
+    try {
+      data = await request.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+
+    const name           = typeof data.name === "string" ? stripNewlines(data.name).slice(0, 200) : "";
+    const businessName   = typeof data.businessName === "string" ? stripNewlines(data.businessName).slice(0, 200) : "";
+    const email          = typeof data.email === "string" ? stripNewlines(data.email).slice(0, 200) : "";
+    const rawWebsite     = typeof data.website === "string" ? data.website.trim().slice(0, 500) : "";
+    const help           = typeof data.help === "string" ? stripNewlines(data.help).slice(0, 500) : "";
+    const packageInterest = typeof data.packageInterest === "string" ? stripNewlines(data.packageInterest).slice(0, 200) : "";
+    const honeypot       = typeof data._honeypot === "string" ? data._honeypot : "";
+
+    // 5. Honeypot — bots fill hidden fields
+    if (honeypot) {
+      return NextResponse.json({ success: true }); // silently discard
+    }
+
+    // 6. Required field validation
+    if (!name || !email || !businessName || !help) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
+
+    // 7. Email format validation
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    }
+
+    // 8. URL validation — only allow http/https, reject javascript: data: etc.
+    const website = rawWebsite && isSafeUrl(rawWebsite) ? rawWebsite : "";
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -196,8 +294,9 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: FROM,
       to: OWNER_EMAIL,
-      subject: `⚡ New enquiry from ${data.name} — ${data.businessName}`,
-      html: ownerEmail(data),
+      // stripNewlines already applied — CRLF injection prevented
+      subject: `⚡ New enquiry from ${name} — ${businessName}`,
+      html: ownerEmail({ name, businessName, email, website, help, packageInterest }),
       attachments: [
         {
           filename: "logo_polished.png",

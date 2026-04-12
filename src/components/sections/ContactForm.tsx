@@ -89,13 +89,17 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
       initial={{ opacity: 0, scale: 0.96, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.45, ease: [0.25, 0.4, 0.25, 1] }}
-      className="rounded-2xl bg-gray-800 border border-white/10 overflow-hidden"
-      style={{ boxShadow: "0 4px 32px rgba(217,70,239,0.15), 0 1px 4px rgba(0,0,0,0.3)" }}
+      className="rounded-2xl overflow-hidden border"
+      style={{
+        background: "#1a1042",
+        borderColor: "rgba(217,70,239,0.22)",
+        boxShadow: "0 0 60px rgba(139,92,246,0.18), 0 4px 32px rgba(0,0,0,0.4)",
+      }}
     >
-      {/* Top accent bar */}
+      {/* Top accent stripe — matches email */}
       <div
-        className="h-1 w-full"
-        style={{ background: "linear-gradient(90deg, #d946ef, #a855f7, #6366f1)" }}
+        className="h-[3px] w-full"
+        style={{ background: "linear-gradient(90deg, transparent 0%, #c026d3 30%, #a855f7 70%, transparent 100%)" }}
       />
 
       <div className="p-8 sm:p-10 flex flex-col items-center text-center gap-6">
@@ -108,7 +112,7 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
             height={36}
             className="shrink-0"
           />
-          <span className="text-white font-bold text-lg tracking-tight">
+          <span className="font-bold text-lg tracking-tight" style={{ color: "#f0e6ff" }}>
             1Launch<span className="text-fuchsia-400">Layer</span>
           </span>
         </div>
@@ -116,26 +120,29 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
         {/* Icon */}
         <div
           className="w-16 h-16 rounded-2xl flex items-center justify-center"
-          style={{ background: "rgba(217,70,239,0.15)", border: "1px solid rgba(217,70,239,0.3)" }}
+          style={{ background: "rgba(217,70,239,0.13)", border: "1px solid rgba(217,70,239,0.35)" }}
         >
           <CheckCircle className="w-8 h-8 text-fuchsia-400" />
         </div>
 
         {/* Message */}
         <div>
-          <h3 className="text-white font-extrabold text-2xl tracking-tight mb-2">
+          <h3 className="font-extrabold text-2xl tracking-tight mb-2" style={{ color: "#f0e6ff" }}>
             Got it, {firstName}!
           </h3>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-            Your enquiry is in. We'll review your details and reach out within{" "}
-            <span className="text-white font-semibold">1 business day</span>{" "}
+          <p className="text-sm leading-relaxed max-w-sm" style={{ color: "#8b7aaa" }}>
+            Your enquiry is in. We&apos;ll review your details and reach out within{" "}
+            <span className="font-semibold" style={{ color: "#c4b5e8" }}>1 business day</span>{" "}
             to book your free discovery call.
           </p>
         </div>
 
         {/* What's next */}
-        <div className="w-full rounded-xl bg-white/5 border border-white/10 p-5 text-left flex flex-col gap-3.5">
-          <p className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.08em]">
+        <div
+          className="w-full rounded-xl p-5 text-left flex flex-col gap-3.5"
+          style={{ background: "#16103e", border: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          <p className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#6b5e8e" }}>
             What happens next
           </p>
           {[
@@ -144,10 +151,13 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
             { icon: CheckCircle, label: "We'll book your free 30-min discovery call" },
           ].map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center shrink-0 mt-px">
-                <Icon className="w-3 h-3 text-fuchsia-400" />
+              <div
+                className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-px"
+                style={{ background: "rgba(217,70,239,0.1)", border: "1px solid rgba(217,70,239,0.22)" }}
+              >
+                <Icon className="w-3.5 h-3.5 text-fuchsia-400" />
               </div>
-              <span className="text-gray-300 text-sm leading-snug">{label}</span>
+              <span className="text-sm leading-snug" style={{ color: "#ddd0f5" }}>{label}</span>
             </div>
           ))}
         </div>
@@ -156,14 +166,16 @@ function SuccessState({ name, onReset }: { name: string; onReset: () => void }) 
         <div className="flex flex-col sm:flex-row gap-3 w-full">
           <a
             href="#packages"
-            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-fuchsia-500 hover:bg-fuchsia-400 text-white text-sm font-bold rounded-full transition-colors shadow-md shadow-fuchsia-500/20 group"
+            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 text-white text-sm font-bold rounded-full transition-colors group"
+            style={{ background: "linear-gradient(135deg, #d946ef 0%, #a855f7 100%)" }}
           >
             View Packages
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </a>
           <button
             onClick={onReset}
-            className="flex-1 inline-flex items-center justify-center px-5 py-3 bg-white/10 hover:bg-white/15 text-gray-300 text-sm font-semibold rounded-full transition-colors"
+            className="flex-1 inline-flex items-center justify-center px-5 py-3 text-sm font-semibold rounded-full transition-colors"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#8b7aaa" }}
           >
             Send another message
           </button>

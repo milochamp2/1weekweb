@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(find \"/c/Users/ajala/OneDrive/Documents/GitHub/1weekweb/src\" -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\) -exec grep -l \"script\\\\|Script\\\\|<head>\" {} \\\\;)",
+      "Bash(grep -n \"subject\\\\|bcc\\\\|cc\\\\|to:\\\\|newline\\\\|\\\\\\\\\\\\\\\\n\\\\|\\\\\\\\\\\\\\\\r\" \"/c/Users/ajala/OneDrive/Documents/GitHub/1weekweb/src/app/api/contact/route.ts\")",
+      "Bash(node -e \"const name = 'Test\\\\\\\\nBcc: attacker@evil.com'; console.log\\('Subject: ' + name\\)\")"
+    ]
+  }
+}
